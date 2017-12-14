@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--开启注解-->
+    <mvc:annotation-driven/>
+    <context:annotation-config/>
+
+    <!--配置了 context:component-scan 后 context:annotation-config 可不比配置，因为前者包含了后者-->
+    <context:component-scan base-package="com.hai.spring.controller" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <!--SpringMVC 不对静态资源进行拦截，但静态资源是 SpringMVC 转交给web应用服务器处理的，不能放到WEB-INF目录下-->
+    <mvc:default-servlet-handler/>
+
+    <!--文件上传-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+        <!-- 文件大小最大值 -->
+        <property name="maxUploadSize" value="1048576000"/>
+        <!-- 内存中的最大值 -->
+        <property name="maxInMemorySize" value="40960"/>
+        <!-- 启用是为了推迟文件解析，以便捕获文件大小异常 -->
+        <property name="resolveLazily" value="true"/>
+    </bean>
+
+    <!-- 默认视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 配置jsp路径的前缀 -->
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <!-- 配置jsp路径的后缀 -->
+        <property name="suffix" value=".jsp"/>
+        <property name="order" value="1"/>
+    </bean>
+
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        &lt;!&ndash; 配置jsp路径的前缀 &ndash;&gt;
+        <property name="prefix" value="/WEB-INF/iusermanager/"/>
+        &lt;!&ndash; 配置jsp路径的后缀 &ndash;&gt;
+        <property name="suffix" value=".jsp"/>
+        <property name="order" value="2"/>
+    </bean>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        &lt;!&ndash; 配置jsp路径的前缀 &ndash;&gt;
+        <property name="prefix" value="/WEB-INF/fileupdownload/"/>
+        &lt;!&ndash; 配置jsp路径的后缀 &ndash;&gt;
+        <property name="suffix" value=".jsp"/>
+        <property name="order" value="3"/>
+    </bean>-->
+
+    <!-- 配置一个 BeanNameViewResolver 视图解析器,使用视图名称来解析视图-->
+    <!--
+        1.实现org.springframework.web.servlet.View接口，如TestView
+        2.在controller中返回视图名时返回 "testView" 即自定义视图的类名首字母小写
+    -->
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+        <property name="order" value="10"/>
+    </bean>
+
+    <!--配置可以不经过 controller 直接映射到视图页，注：此标签必须和 mvc:annotation-driven 配合使用，否则其path则不能被其它controller里的视图解析-->
+    <!--<mvc:view-controller path="/" view-name="index"/>-->
+    <mvc:view-controller path="/userManage/login" view-name="iusermanager/login"/>
+    <mvc:view-controller path="/draw-code" view-name="draw-code"/>
+    <mvc:view-controller path="/test" view-name="test"/>
+    <mvc:view-controller path="/smart-upload" view-name="fileupdownload/smartUpload"/>
+
+
+</beans>

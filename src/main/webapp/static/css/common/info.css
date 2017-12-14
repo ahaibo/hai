@@ -1,0 +1,67 @@
+@CHARSET "UTF-8";
+.pageIptCls {
+    width: 50px;
+}
+
+.floatR {
+    float: right;
+}
+
+.floatL {
+    float: left;
+}
+
+.displayUser {
+    color: #FF6600;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.floatLAndPaddingR10 {
+    float: left;
+    padding-right: 10px;
+}
+
+.alignR {
+    text-align: right;
+}
+
+.alignL {
+    text-align: left;
+}
+
+td {
+    border-bottom: solid 1px #cccccc;
+    border-right: solid 1px #cccccc;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: #FF6600; /* 鼠标移动到链接上 */
+}
+
+a:link {
+    color: blue; /* 未访问的链接 */
+}
+
+a:visited {
+    color: #00FF00; /* 已访问的链接 */
+}
+
+a:active {
+    color: #0000FF; /* 选定的链接 */
+}
+
+.img-item {
+    margin: 5px;
+    width: 350px;
+    height: 300px;
+}
+
+.btn-download {
+    float: right;
+    margin-right: 10px;
+}

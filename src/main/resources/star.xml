@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<stars>
+	<star>
+		<name>Jack</name>
+		<sex>Man</sex>
+		<age>50</age>
+		<other>...</other>
+	</star>
+	<star>
+		<name>李小龙</name>
+		<sex>Man</sex>
+		<age>30</age>
+		<other>精武门</other>
+	</star>
+	<star>
+		<name>李连杰</name>
+		<sex>Man</sex>
+		<age>50</age>
+		<other>黄飞鸿</other>
+	</star>
+	<star>
+		<name>林青霞</name>
+		<sex>女</sex>
+		<age>40</age>
+		<other>东方不败</other>
+	</star>
+</stars>

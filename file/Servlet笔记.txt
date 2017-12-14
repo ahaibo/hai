@@ -1,0 +1,8 @@
+
+PrintWriter printWriter = response.getWriter();
+OutputStream outputStream = response.getOutputStream();
+
+printWriter 和 outputStream 都能用于向客户端些数据。
+printWriter主要用于些文本数据，效率高。
+outputStream文本数据和二进制数据都可写，但一般用于些二进制的数据，因为用于写文本数据的效率比printWriter低。
+注意：这两种方式不能同时使用。因为这两只方式中的任何一种写了数据后web服务器在会去看该数据流是否已关闭，若没关闭则会关闭。

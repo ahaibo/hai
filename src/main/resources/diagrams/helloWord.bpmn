@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath"
+             id="m1512620417456" name="" targetNamespace="http://www.activiti.org/test"
+             typeLanguage="http://www.w3.org/2001/XMLSchema">
+    <process id="helloWordProcess" isClosed="false" isExecutable="true" name="Hello Word Process" processType="None">
+        <startEvent id="start_hello_word" name="start hello word"/>
+        <endEvent id="end_hello_word" name="end hello word"/>
+        <userTask activiti:assignee="hai" activiti:exclusive="true" id="task_hello_word" name="task hello word"/>
+        <sequenceFlow id="_5" sourceRef="start_hello_word" targetRef="task_hello_word"/>
+        <sequenceFlow id="_6" sourceRef="task_hello_word" targetRef="end_hello_word"/>
+    </process>
+    <bpmndi:BPMNDiagram
+            documentation="background=#3C3F41;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0"
+            id="Diagram-_1" name="New Diagram">
+        <bpmndi:BPMNPlane bpmnElement="helloWordProcess">
+            <bpmndi:BPMNShape bpmnElement="start_hello_word" id="Shape-start_hello_word">
+                <omgdc:Bounds height="32.0" width="32.0" x="160.0" y="30.0"/>
+                <bpmndi:BPMNLabel>
+                    <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="end_hello_word" id="Shape-end_hello_word">
+                <omgdc:Bounds height="32.0" width="32.0" x="165.0" y="290.0"/>
+                <bpmndi:BPMNLabel>
+                    <omgdc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="task_hello_word" id="Shape-task_hello_word">
+                <omgdc:Bounds height="60.0" width="85.0" x="135.0" y="130.0"/>
+                <bpmndi:BPMNLabel>
+                    <omgdc:Bounds height="60.0" width="85.0" x="0.0" y="0.0"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge bpmnElement="_5" id="BPMNEdge__5" sourceElement="_2" targetElement="_4">
+                <omgdi:waypoint x="176.0" y="62.0"/>
+                <omgdi:waypoint x="176.0" y="130.0"/>
+                <bpmndi:BPMNLabel>
+                    <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="_6" id="BPMNEdge__6" sourceElement="_4" targetElement="_3">
+                <omgdi:waypoint x="181.0" y="190.0"/>
+                <omgdi:waypoint x="181.0" y="290.0"/>
+                <bpmndi:BPMNLabel>
+                    <omgdc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+                </bpmndi:BPMNLabel>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</definitions>
