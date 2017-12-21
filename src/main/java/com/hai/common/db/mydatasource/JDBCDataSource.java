@@ -17,7 +17,7 @@ import java.util.Properties;
  */
 public class JDBCDataSource {
     private DataSource dataSource;
-    private static final String DBCP_CONFIG_PROPERTIES = "dbcpConfig.properties";
+    private static final String DBCP_CONFIG_PROPERTIES = "properties/dbcpConfig.properties";
 
     public JDBCDataSource() {
         this(null);

@@ -59,7 +59,7 @@ public class MyDataSource {
      * @throws Exception
      */
     private Connection createConnection() throws Exception {
-        String properties = "MysqlDB.properties";
+        String properties = "properties/MysqlDB.properties";
         return createConnection(properties);
     }
 

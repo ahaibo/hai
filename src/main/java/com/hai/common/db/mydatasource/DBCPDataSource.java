@@ -15,7 +15,7 @@ import java.util.Properties;
  */
 public class DBCPDataSource {
     public static void main(String[] args) throws Exception {
-        Properties properties = DBDriverProp.newInstance("MysqlDB.properties");
+        Properties properties = DBDriverProp.newInstance("properties/MysqlDB.properties");
         DataSource dataSource = BasicDataSourceFactory.createDataSource(properties);
         Connection connection = dataSource.getConnection();
     }

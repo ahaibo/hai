@@ -15,7 +15,7 @@ import java.util.Date;
  */
 public class MysqlDBTest {
     public static void main(String[] args) throws IOException {
-        String propFilePath = "MysqlDB.properties";
+        String propFilePath = "properties/MysqlDB.properties";
         String sql = "insert into user(name,sex,age,email,birthday,money) values(?,?,?,?,?,?)";
         int age = RandomUtil.random(18, 40);
         float money = RandomUtil.random(1000f, 100 * 10000f);

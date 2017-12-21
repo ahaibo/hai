@@ -31,7 +31,7 @@ public class DomParse {
         DocumentBuilder builder = factory.newDocumentBuilder();
 
 
-        InputStream is = getClass().getClassLoader().getResourceAsStream("star.xml");
+        InputStream is = getClass().getClassLoader().getResourceAsStream("xml/star.xml");
         document = builder.parse(is);
         if (null != is) {
             is.close();
@@ -73,7 +73,7 @@ public class DomParse {
         //数据源
         Source xmlSource = new DOMSource(document);
         //要输出的目的地
-        Result outputTarget = new StreamResult("star.xml");
+        Result outputTarget = new StreamResult("xml/star.xml");
         transformer.transform(xmlSource, outputTarget);
     }
 }
