@@ -3,6 +3,7 @@ package com.hai.ws.service;
 import com.hai.ws.api.IHelloWorld;
 import com.hai.ws.entity.Role;
 import com.hai.ws.entity.User;
+import org.springframework.stereotype.Component;
 
 import javax.jws.WebService;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/12/13.
  */
+@Component("helloWorld")
 @WebService
 public class HelloWorldImpl implements IHelloWorld {
     @Override

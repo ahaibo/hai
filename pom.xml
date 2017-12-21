@@ -17,6 +17,14 @@
         <relativePath>../base</relativePath>
     </parent>
 
+    <properties>
+        <!--
+        Error creating bean with name 'org.apache.cxf.jaxws.EndpointImpl-1133288233
+        在测试时使用 cxf v.3.2.1 出此错误，换为 v.3.0.3 后正常运行
+        -->
+        <cxf.version.2>3.0.3</cxf.version.2>
+    </properties>
+
     <dependencies>
 
         <dependency>
@@ -66,13 +74,13 @@
         <!--spring-->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <artifactId>spring-core</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
+            <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
@@ -328,19 +336,25 @@
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-core</artifactId>
-            <version>${cxf.version}</version>
+            <version>${cxf.version.2}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxws</artifactId>
-            <version>${cxf.version}</version>
+            <version>${cxf.version.2}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version.2}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http-jetty</artifactId>
-            <version>${cxf.version}</version>
+            <version>${cxf.version.2}</version>
         </dependency>
 
     </dependencies>

@@ -10,6 +10,9 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!--import-->
+    <import resource="spring-cxf.xml"/>
+
     <!--开启注解-->
     <mvc:annotation-driven/>
     <context:annotation-config/>
@@ -20,6 +23,9 @@
         <context:include-filter type="annotation"
                                 expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
+
+    <!--scan web service-->
+    <!--<context:component-scan base-package="com.hai.ws"/>-->
 
     <!--SpringMVC 不对静态资源进行拦截，但静态资源是 SpringMVC 转交给web应用服务器处理的，不能放到WEB-INF目录下-->
     <mvc:default-servlet-handler/>
@@ -74,6 +80,4 @@
     <mvc:view-controller path="/draw-code" view-name="draw-code"/>
     <mvc:view-controller path="/test" view-name="test"/>
     <mvc:view-controller path="/smart-upload" view-name="fileupdownload/smartUpload"/>
-
-
 </beans>
