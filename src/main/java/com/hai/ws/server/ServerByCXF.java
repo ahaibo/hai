@@ -8,6 +8,7 @@ import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.jaxws.JaxWsServerFactoryBean;
 
 /**
+ * 此程序启动后适于 ws-client-helloworld(port:8090) 程序测试。
  * Created by Administrator on 2017/12/13.
  */
 public class ServerByCXF {
