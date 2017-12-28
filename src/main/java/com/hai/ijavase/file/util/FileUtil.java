@@ -825,7 +825,7 @@ public class FileUtil {
         // FileReplacePosition.CONTAINS);
         // }
 
-         renameFileBySpecificString("C:\\Media\\九州海上牧云记", ".WEB-DL.MP4.1080P.无水印.[菜牙电影网]", "");
+//         renameFileBySpecificString("C:\\Media\\九州海上牧云记", ".WEB-DL.MP4.1080P.无水印.[菜牙电影网]", "");
 //         renameFileBySpecificString("C:\\\\Media\\\\第八季\\\\batch", "_batch", "");
 //        renameFileBySpecificString("C:\\Media\\雪花神剑CCTV怀旧剧场源码", ".hd1tj", "");
 
@@ -845,7 +845,8 @@ public class FileUtil {
         // int suffixIndex = s.lastIndexOf(".");
         // System.out.println(s.subString(0, suffixIndex).concat("hai").concat(s.subString(suffixIndex)));
 
-//        appendName("C:\\Tutorial Videos\\Python\\Web服务器案例\\Web服务器案例_第01天", "D1.", "0");
+        appendName("C:\\Tutorial Videos\\PS\\AE视频教程视频\\1", "D1.", "0");
+        appendName("C:\\Tutorial Videos\\PS\\AE视频教程视频\\2", "D2.", "0");
 //        appendName("C:\\Tutorial Videos\\Python\\Web服务器案例\\Web服务器案例_第02天", "D2.", "0");
 //         appendName("C:\\Media\\第八季\\batch", "Part8.", "0");
 
