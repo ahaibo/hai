@@ -807,18 +807,12 @@ public class FileUtil {
 
     public static void main(String[] args) throws IOException {
 //        StringBuilder sb1 = new StringBuilder();
-//        System.out.println(123);
         // sb1.append("第一讲#第二讲#第三讲#第四讲#第五讲#第六讲#第七讲#第八讲#第九讲#第十讲#第十一讲#第十二讲#第十三讲#第十四讲#第十五讲");
         // sb1.append("第十六讲#第十七讲#第十八讲#第十九讲#第二十讲#第二十一讲#第二十二讲#第二十三讲#第二十四讲#第二十五讲#第二十六讲#第二十七讲#第二十八讲#第二十九讲#第三十讲");
         // sb1.append("第三十一讲#第三十二讲#第三十三讲#第三十四讲#第三十五讲#第三十六讲#第三十七讲#第三十八讲#第三十九讲#第四十讲#第四十一讲#第四十二讲#第四十三讲#第四十四讲#第四十五讲");
-        // sb1.append("第三十一讲#第三十二讲#第三十三讲#第三十四讲#第三十五讲第三十六讲");
 
 //		StringBuilder sb2 = new StringBuilder();
-        // sb2.append("01#02#03#04#05#06#07#08#09#10#11#12#13#14#15");
-        // sb2.append("16#17#18#19#20#21#22#23#24#25#26#27#28#29#30");
-        // sb2.append("31#32#33#34#35#36#37#38#39#40#41#42#43#44#45");
-        // sb2.append("31#32#33#34#35#36");
-        // System.out.println(111);
+        // sb2.append("01#02#03#04#05#06#07#08#09#10#11#12#13#14#15#16#17#18#19#20#21#22#23#24#25#26#27#28#29#30#31#32#33#34#35#36#37#38#39#40#41#42#43#44#45");
 
         // for(int i=1; i<=12; i++){
         // renameFileBySpecificString("D:\\Tutorial Videos\\C,C++\\C语言也能干大事之C语言开发网站教程\\Day" + i, ".MP04", ".mp4",
@@ -826,15 +820,11 @@ public class FileUtil {
         // }
 
 //         renameFileBySpecificString("C:\\Media\\九州海上牧云记", ".WEB-DL.MP4.1080P.无水印.[菜牙电影网]", "");
-//         renameFileBySpecificString("C:\\\\Media\\\\第八季\\\\batch", "_batch", "");
-//        renameFileBySpecificString("C:\\Media\\雪花神剑CCTV怀旧剧场源码", ".hd1tj", "");
 
         // renameFileBySpecificString("D:\\KuGou\\Temp", "kgtemp", "mp3", FileReplacePosition.CONTAINS);
 
-//         fileRenameByPosAndLen("D:\\Files\\images\\20170708华山之在路上", 3, 1, "_");
         // zeroFillToFileName("D:\\Tutorial Videos\\SEO\\S$E$O$", 1, 2, true);
         // fileRenameByPosAndLen("D:\\Tutorial Videos\\PHP\\5天PHP轻松入门视频教程2015版\\apache知识", 0, 0, "Apache.");
-        // fileRenameByPosAndLen("D:\\Tutorial Videos\\SSH,SSM\\Spring框架2016版视频\\day01视频\\视频", 0, 0, "Day01.");
         // numFillToFileName("D:\\Tutorial Videos\\C,C++\\黑盾技术论坛菜鸟基础起飞C++125课", 2, 1, 4, true);
 
         // for(int i=1; i<= 13; i++){
@@ -845,10 +835,15 @@ public class FileUtil {
         // int suffixIndex = s.lastIndexOf(".");
         // System.out.println(s.subString(0, suffixIndex).concat("hai").concat(s.subString(suffixIndex)));
 
-        appendName("C:\\Tutorial Videos\\PS\\AE视频教程视频\\1", "D1.", "0");
-        appendName("C:\\Tutorial Videos\\PS\\AE视频教程视频\\2", "D2.", "0");
-//        appendName("C:\\Tutorial Videos\\Python\\Web服务器案例\\Web服务器案例_第02天", "D2.", "0");
-//         appendName("C:\\Media\\第八季\\batch", "Part8.", "0");
+        appendName("D:\\Files\\YTMARRY\\杨黎明&唐慧\\2010年", "2010.", "0");
+        appendName("D:\\Files\\YTMARRY\\杨黎明&唐慧\\2011年尖山竹海", "2011.", "0");
+        appendName("D:\\Files\\YTMARRY\\杨黎明&唐慧\\2012年", "2012.", "0");
+        appendName("D:\\Files\\YTMARRY\\杨黎明&唐慧\\2013年", "2013.", "0");
+        appendName("D:\\Files\\YTMARRY\\杨黎明&唐慧\\2015年", "2015.", "0");
+        appendName("D:\\Files\\YTMARRY\\杨黎明&唐慧\\2016", "2016.", "0");
+        appendName("D:\\Files\\YTMARRY\\杨黎明&唐慧\\2017", "2017.", "0");
+        appendName("D:\\Files\\YTMARRY\\杨黎明&唐慧\\2017年5月婚纱照", "2017.5.", "0");
+        appendName("D:\\Files\\YTMARRY\\杨黎明&唐慧\\2018", "2018.", "0");
 
         /*for (int i = 9, j = 20; i <= j; i++) {
             String str = "";

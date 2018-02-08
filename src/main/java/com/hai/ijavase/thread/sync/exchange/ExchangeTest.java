@@ -16,27 +16,19 @@ public class ExchangeTest {
         ExecutorService service = Executors.newCachedThreadPool();
         Exchanger<String> exchanger = new Exchanger();
 
-        service.submit(new Runnable() {
-            @Override
-            public void run() {
-                String data1 = "data1";
-                String thread = Thread.currentThread().getName();
-                System.out.println("thread:\t" + thread + "\tpre-exchange data:\t" + data1);
-                String data2 = exchange(exchanger, data1);
-                System.out.println("thread:\t" + thread + "\texchanged data:\t" + data2);
-            }
-        });
-
-        service.submit(new Runnable() {
-            @Override
-            public void run() {
-                String data1 = "data2";
-                String thread = Thread.currentThread().getName();
-                System.out.println("thread:\t" + thread + "\tpre-exchange data:\t" + data1);
-                String data2 = exchange(exchanger, data1);
-                System.out.println("thread:\t" + thread + "\texchanged data:\t" + data2);
-            }
-        });
+        for (int i = 1; i <= 2; i++) {
+            final int temp = i;
+            service.submit(new Runnable() {
+                @Override
+                public void run() {
+                    String data1 = "data" + temp;
+                    String thread = Thread.currentThread().getName();
+                    System.out.println("thread:\t" + thread + "\tpre-exchange data:\t" + data1);
+                    String data2 = exchange(exchanger, data1);
+                    System.out.println("thread:\t" + thread + "\texchanged data:\t" + data2);
+                }
+            });
+        }
 
         service.shutdown();
 

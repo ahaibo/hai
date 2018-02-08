@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.hai.idb;
+package com.hai.db;
 
 /**
  * @author Administrator
