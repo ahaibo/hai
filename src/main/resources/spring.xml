@@ -10,6 +10,9 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <context:property-placeholder location="hystrix.properties"/>
+    <context:property-placeholder location="redis.properties"/>
+
     <!--import-->
     <import resource="spring-cxf.xml"/>
 
@@ -72,6 +75,26 @@
     -->
     <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
         <property name="order" value="10"/>
+    </bean>
+
+    <!--//TODO spring session + redis 实现 session 共享解决方案-->
+    <bean id="redisHttpSessionConfiguration"
+          class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+        <property name="maxInactiveIntervalInSeconds" value="600"/>
+    </bean>
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${redis.pool.maxTotal}"/>
+        <property name="maxIdle" value="${redis.pool.maxIdle}"/>
+    </bean>
+
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          destroy-method="destroy">
+        <property name="hostName" value="${redis.hostname}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="timeout" value="${redis.timeout}"/>
+        <property name="usePool" value="${redis.usePool}"/>
+        <property name="poolConfig" ref="jedisPoolConfig"/>
     </bean>
 
     <!--配置可以不经过 controller 直接映射到视图页，注：此标签必须和 mvc:annotation-driven 配合使用，否则其path则不能被其它controller里的视图解析-->

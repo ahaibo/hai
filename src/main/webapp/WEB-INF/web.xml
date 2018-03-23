@@ -54,6 +54,17 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!--//TODO spring session + redis 实现 session 共享解决方案-->
+    <filter>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <!--配置 SpringMVC 的 DispatcherServlet-->
     <servlet>
         <servlet-name>dispatcherServlet</servlet-name>
@@ -77,7 +88,7 @@
     <!--servlet part start-->
     <servlet>
         <servlet-name>ServletConfigTest</servlet-name>
-        <servlet-class>com.hai.ijavase.iservlet.ServletConfigTest</servlet-class>
+        <servlet-class>com.hai.javase.servlet.ServletConfigTest</servlet-class>
         <init-param>
             <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>
@@ -92,23 +103,23 @@
 
     <servlet>
         <servlet-name>MyFristInitServlet</servlet-name>
-        <servlet-class>com.hai.ijavase.iservlet.MyFristInitServlet</servlet-class>
+        <servlet-class>com.hai.javase.servlet.MyFristInitServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet>
         <servlet-name>RequestServletTest</servlet-name>
-        <servlet-class>com.hai.ijavase.iservlet.RequestServletTest</servlet-class>
+        <servlet-class>com.hai.javase.servlet.RequestServletTest</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>RefererError</servlet-name>
-        <servlet-class>com.hai.ijavase.iservlet.RefererError</servlet-class>
+        <servlet-class>com.hai.javase.servlet.RefererError</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>com.hai.ijavase.iservlet.iusermanager.control.Login</servlet-class>
+        <servlet-class>com.hai.javase.servlet.iusermanager.control.Login</servlet-class>
         <init-param>
             <param-name>encoding</param-name>
             <param-value>utf-8</param-value>
@@ -117,26 +128,26 @@
 
     <servlet>
         <servlet-name>Main</servlet-name>
-        <servlet-class>com.hai.ijavase.iservlet.iusermanager.control.Main</servlet-class>
+        <servlet-class>com.hai.javase.servlet.iusermanager.control.Main</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>DetailUser</servlet-name>
-        <servlet-class>com.hai.ijavase.iservlet.iusermanager.control.DetailUser</servlet-class>
+        <servlet-class>com.hai.javase.servlet.iusermanager.control.DetailUser</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>RandomCodeServlet</servlet-name>
-        <servlet-class>com.hai.ijavase.iservlet.common.randomcode.RandomCodeServlet</servlet-class>
+        <servlet-class>com.hai.javase.servlet.common.randomcode.RandomCodeServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServletContextTest</servlet-name>
-        <servlet-class>com.hai.ijavase.iservlet.ServletContextTest</servlet-class>
+        <servlet-class>com.hai.javase.servlet.ServletContextTest</servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>ThreadServlet</servlet-name>
-        <servlet-class>com.hai.ijavase.iservlet.ThreadServlet</servlet-class>
+        <servlet-class>com.hai.javase.servlet.ThreadServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 

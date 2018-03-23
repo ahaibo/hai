@@ -1,5 +1,0 @@
-package com.hai.ijavase.desinpattern.bridge;
-
-public interface Color {
-    public void bepaint(String shape);
-}

@@ -15,6 +15,6 @@ public class Constants {
     public static final String IUSERMANAGER_HTTP_HEADERS_PAGE = PROJECT_PREFIX + "/iusermanager/getHttpHeaders.jsp";
     public static final String IUSERMANAGER_INDEX_PAGE = PROJECT_PREFIX + "/iusermanager/login.jsp";
     public static final String IUSERMANAGER_MAIN_PAGE = PROJECT_PREFIX + "/iusermanager/main.jsp";
-    public static final String DEFAULT_DB_PROPERTIES_FILA_PATH = "com/hai/ijavase/iservlet/iusermanager/DB.properties";
+    public static final String DEFAULT_DB_PROPERTIES_FILA_PATH = "com/hai/javase/servlet/iusermanager/DB.properties";
     public static final String FILE_UPLOAD_PATH = "/static/images/";
 }

@@ -1,4 +1,4 @@
-<%@page import="com.hai.ijavase.iservlet.iusermanager.entity.User"%>
+<%@page import="com.hai.javase.servlet.iusermanager.entity.User"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"
 	contentType="text/html; charset=UTF-8"%>
 <%
