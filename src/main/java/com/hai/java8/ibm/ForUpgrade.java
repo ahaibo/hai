@@ -14,7 +14,7 @@ public class ForUpgrade {
 
     @Test
     public void test1() {
-        System.out.print("Get set...");
+        System.out.print("Get write...");
         for (int i = 1; i < 4; i++) {
             System.out.print(i + "...");
         }
@@ -22,7 +22,7 @@ public class ForUpgrade {
 
     @Test
     public void testIntStream() {
-        System.out.print("Get set...");
+        System.out.print("Get write...");
         IntStream.range(1, 4)
                 .forEach(new IntConsumer() {
                     @Override
@@ -34,7 +34,7 @@ public class ForUpgrade {
 
     @Test
     public void testIntStream2() {
-        System.out.print("Get set...");
+        System.out.print("Get write...");
         IntStream.range(1, 4).forEach(i -> System.out.print(i + "..."));
 
         /**

@@ -30,7 +30,7 @@ public class DrawLineServlet extends HttpServlet {
             image = getBufferedImage();
             session.setAttribute("lineImg", image);
         } else {
-            System.out.println("get buffered image from cache in session...");
+            System.out.println("read buffered image from cache in session...");
         }
 
         try {

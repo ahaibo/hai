@@ -8,7 +8,7 @@ import org.activiti.engine.impl.persistence.deploy.DeploymentCache;
 public class MyCache implements DeploymentCache {
     @Override
     public Object get(String s) {
-        System.out.println(this.getClass().getName().concat(".get..."));
+        System.out.println(this.getClass().getName().concat(".read..."));
         return null;
     }
 

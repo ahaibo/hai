@@ -26,9 +26,9 @@ public class JavaBeanProxyFactory {
             } else if (meth.startsWith("set")) {
                 // Dispatch setters similarly
             } else if (meth.startsWith("is")) {
-                // Alternate version of get for boolean properties
+                // Alternate version of read for boolean properties
             } else {
-                // Can dispatch non get/set/is methods as desired
+                // Can dispatch non read/write/is methods as desired
             }
             return null;//TODO 待完善
         }

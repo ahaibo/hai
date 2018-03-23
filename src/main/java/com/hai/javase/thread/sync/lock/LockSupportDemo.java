@@ -18,7 +18,7 @@ public class LockSupportDemo {
         @Override
         public void run() {
             synchronized (u) {
-                System.out.println(getName() + " get lock...");
+                System.out.println(getName() + " read lock...");
                 LockSupport.park();
                 System.out.println(getName() + " is parking...");
             }

@@ -25,7 +25,7 @@ public class SoldState implements State {
     public void turnCrank() {
         // TODO Auto-generated method stub
         System.out
-                .println("we are giving you a candy,turning another get nothing,!");
+                .println("we are giving you a candy,turning another read nothing,!");
 
     }
 

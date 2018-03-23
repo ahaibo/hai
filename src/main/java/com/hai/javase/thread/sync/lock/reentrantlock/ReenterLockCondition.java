@@ -12,7 +12,7 @@ public class ReenterLockCondition implements Runnable {
     public void run() {
         try {
             lock.lock();
-            System.out.println(Thread.currentThread().getName() + ": get lock:");
+            System.out.println(Thread.currentThread().getName() + ": read lock:");
             condition.await(); // release lock，thread is waiting()  
             System.out.println(Thread.currentThread().getName() + ": is going on");
         } catch (InterruptedException e) {
@@ -30,7 +30,7 @@ public class ReenterLockCondition implements Runnable {
         Thread.sleep(2000);
 
         lock.lock();
-        System.out.println(Thread.currentThread().getName() + ": get lock:");
+        System.out.println(Thread.currentThread().getName() + ": read lock:");
         condition.signal();
         System.out.println(Thread.currentThread().getName() + ": notify:");
         lock.unlock();

@@ -159,7 +159,7 @@ public abstract class MyAbstractPdfView extends AbstractView {
      * {@code Document.close()} calls.
      * <p>Note that the passed-in HTTP response is just supposed to be used
      * for setting cookies or other HTTP headers. The built PDF document itself
-     * will automatically get written to the response after this method returns.
+     * will automatically read written to the response after this method returns.
      *
      * @param model    the model Map
      * @param document the iText Document to add elements to

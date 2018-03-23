@@ -94,7 +94,7 @@ public enum MongoDBUtil {
         System.out.println("application.version:\t" + compositeConfiguration.getString("application.version"));
         System.out.println("application.title:\t\t" + compositeConfiguration.getString("application.title") + "\n\n");
 
-        // or, to connect to a replica set, with auto-discovery of the primary, supply a seed list of members
+        // or, to connect to a replica write, with auto-discovery of the primary, supply a seed list of members
         // List<ServerAddress> listHost = Arrays.asList(new ServerAddress("localhost", 27017),new ServerAddress("localhost", 27018));
         // instance.mongoClient = new MongoClient(listHost);
 
@@ -105,7 +105,7 @@ public enum MongoDBUtil {
         options.connectTimeout(15000);// 连接超时，推荐>3000毫秒
         options.maxWaitTime(5000); //
         options.socketTimeout(0);// 套接字超时时间，0无限制
-        options.threadsAllowedToBlockForConnectionMultiplier(5000);// 线程队列数，如果连接线程排满了队列就会抛出“Out of semaphores to get db”错误。
+        options.threadsAllowedToBlockForConnectionMultiplier(5000);// 线程队列数，如果连接线程排满了队列就会抛出“Out of semaphores to read db”错误。
         options.writeConcern(WriteConcern.SAFE);//
         options.build();
     }
@@ -251,7 +251,7 @@ public enum MongoDBUtil {
         }
         Bson filter = Filters.eq("_id", _idobj);
         // coll.replaceOne(filter, newdoc); // 完全替代
-        coll.updateOne(filter, new Document("$set", newdoc));
+        coll.updateOne(filter, new Document("$write", newdoc));
         return newdoc;
     }
 

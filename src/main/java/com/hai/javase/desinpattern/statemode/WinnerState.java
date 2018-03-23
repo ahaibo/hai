@@ -26,7 +26,7 @@ public class WinnerState implements State {
     public void turnCrank() {
         // TODO Auto-generated method stub
         System.out
-                .println("we are giving you a candy,turning another get nothing,!");
+                .println("we are giving you a candy,turning another read nothing,!");
 
     }
 
@@ -39,7 +39,7 @@ public class WinnerState implements State {
         if (mCandyMachine.getCount() == 0) {
             mCandyMachine.setState(mCandyMachine.mSoldOutState);
         } else {
-            System.out.println("you are a winner!you get another candy!");
+            System.out.println("you are a winner!you read another candy!");
             mCandyMachine.releaseCandy();
             if (mCandyMachine.getCount() > 0) {
                 mCandyMachine.setState(mCandyMachine.mOnReadyState);

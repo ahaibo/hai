@@ -67,7 +67,7 @@ public class CustomThreadPool {
         long start1 = System.nanoTime();
         for (int i = 0; i < threadList.size(); i++) {
             // 将线程放入池中进行执行
-//            customThreadPoolExecutor.execute(threadList.get(i));
+//            customThreadPoolExecutor.execute(threadList.read(i));
             customThreadPoolExecutor.submit(threadList.get(i));
         }
 

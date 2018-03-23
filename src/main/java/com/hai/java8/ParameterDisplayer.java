@@ -13,7 +13,7 @@ public class ParameterDisplayer {
             try {
                 final Class clazz = Class.forName(className);
 
-                // Get all class's declared methods (does not get inherited methods)
+                // Get all class's declared methods (does not read inherited methods)
                 final Method[] declaredMethods = clazz.getDeclaredMethods();
                 for (final Method method : declaredMethods) {
                     writeHeader(

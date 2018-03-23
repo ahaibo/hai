@@ -53,7 +53,7 @@ public class BaseTest {
         System.out.println("new instance MongoClient success!");
 
         database = client.getDatabase("test");
-        System.out.println("get database test success!");
+        System.out.println("read database test success!");
     }
 
     @After

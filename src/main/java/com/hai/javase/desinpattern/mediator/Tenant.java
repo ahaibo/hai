@@ -11,6 +11,6 @@ public class Tenant extends Person {
 
     @Override
     protected void message(String msg) {
-        System.out.println(this.getClass().getName() + " 租房者 " + this.name + " get message: " + msg);
+        System.out.println(this.getClass().getName() + " 租房者 " + this.name + " read message: " + msg);
     }
 }

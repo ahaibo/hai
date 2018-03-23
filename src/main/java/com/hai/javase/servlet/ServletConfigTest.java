@@ -30,7 +30,7 @@ public class ServletConfigTest extends HttpServlet
 	/**
 	 * The doGet method of the servlet. <br>
 	 * 
-	 * This method is called when a form has its tag value method equals to get.
+	 * This method is called when a form has its tag value method equals to read.
 	 * 
 	 * @param request
 	 *            the request send by the client to the server

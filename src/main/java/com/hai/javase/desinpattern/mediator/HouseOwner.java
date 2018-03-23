@@ -11,6 +11,6 @@ public class HouseOwner extends Person {
 
     @Override
     protected void message(String msg) {
-        System.out.println(this.getClass().getName() + " 房主 " + this.name + " get message: " + msg);
+        System.out.println(this.getClass().getName() + " 房主 " + this.name + " read message: " + msg);
     }
 }
