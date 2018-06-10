@@ -8,7 +8,7 @@ import java.util.Random;
 import java.util.concurrent.*;
 
 /**
- * 建议131: cyclicbarrier让多线程齐步走
+ * 建议131: cyclicbarrier 让多线程齐步走
  * Created by Administrator on 2017/10/2.
  */
 public class WorkerExample {

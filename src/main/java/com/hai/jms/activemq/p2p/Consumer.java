@@ -9,25 +9,6 @@ import org.apache.log4j.Logger;
 
 import javax.jms.*;
 
-class MyMessageListener implements MessageListener {
-    static Logger log = Logger.getLogger(MyMessageListener.class);
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.jms.MessageListener#onMessage(javax.jms.Message)
-     */
-    @Override
-    public void onMessage(Message message) {
-        try {
-            log.info("consumer received activemq msg: " + ((TextMessage) message).getText());
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }
-    }
-
-}
-
 /**
  * ActiveMQ 点对点链接 生产方
  *
@@ -104,4 +85,17 @@ public class Consumer {
         }
     }
 
+    static class MyMessageListener implements MessageListener {
+        static Logger log = Logger.getLogger(MyMessageListener.class);
+
+        @Override
+        public void onMessage(Message message) {
+            try {
+                log.info("consumer received activemq msg: " + ((TextMessage) message).getText());
+            } catch (JMSException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 }

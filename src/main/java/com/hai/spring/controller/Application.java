@@ -14,4 +14,9 @@ public class Application {
         System.out.println(this.getClass().getName() + ".index...");
         return "index";
     }
+
+    @RequestMapping("/websocket")
+    public String websocket() {
+        return "websocket";
+    }
 }

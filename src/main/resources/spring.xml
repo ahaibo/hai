@@ -18,6 +18,15 @@
 
     <!--开启注解-->
     <mvc:annotation-driven/>
+
+    <!--支持异步 servlet-->
+    <!--
+    <mvc:annotation-driven>
+        <mvc:async-support default-timeout="5000"/>
+        &lt;!&ndash;避免静态页面和URI同名而导致静态页面无法访问。如：login.* | login.jsp&ndash;&gt;
+        <mvc:path-matching suffix-pattern="false"/>
+    </mvc:annotation-driven>-->
+
     <context:annotation-config/>
 
     <!--配置了 context:component-scan 后 context:annotation-config 可不比配置，因为前者包含了后者-->
@@ -29,6 +38,9 @@
 
     <!--scan web service-->
     <!--<context:component-scan base-package="com.hai.ws"/>-->
+
+    <!-- 用于持有ApplicationContext,可以使用SpringContextHolder.getBean('xxxx')的静态方法得到spring bean对象 -->
+    <bean class="com.hai.spring.utils.SpringContextHolder" lazy-init="false"/>
 
     <!--SpringMVC 不对静态资源进行拦截，但静态资源是 SpringMVC 转交给web应用服务器处理的，不能放到WEB-INF目录下-->
     <mvc:default-servlet-handler/>

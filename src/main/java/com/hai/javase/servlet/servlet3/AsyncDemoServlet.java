@@ -12,6 +12,7 @@ import java.util.Date;
 
 @WebServlet(urlPatterns = "/demo", asyncSupported = true)
 public class AsyncDemoServlet extends HttpServlet {
+
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
