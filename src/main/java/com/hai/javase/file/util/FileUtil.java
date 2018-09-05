@@ -835,7 +835,7 @@ public class FileUtil {
         // int suffixIndex = s.lastIndexOf(".");
         // System.out.println(s.subString(0, suffixIndex).concat("hai").concat(s.subString(suffixIndex)));
 
-//        appendName("C:\\Media\\Slam Dunk - HDTV x264 960×720 AAC", "2010.", "0");
+        appendName("C:\\Tutorial Videos\\Hacker\\Hacker-网络欺骗、信息窃取", "Hacker-网络欺骗、信息窃取.", "0");
 
         /*for (int i = 9, j = 20; i <= j; i++) {
             String str = "";
