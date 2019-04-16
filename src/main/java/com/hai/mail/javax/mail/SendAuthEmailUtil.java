@@ -10,6 +10,14 @@ import java.util.Properties;
 //本实例以QQ邮箱为例，你需要在qq后台设置[开启POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务]
 public class SendAuthEmailUtil {
 
+    private static final String MAIL_HOST = "smtp.qq.com";
+    private static final String MAIL_NAME = "785155409@qq.com";
+    private static final String MAIL_PASS = "hai!@#87";
+
+    public static void send() {
+        send(MAIL_HOST, null, MAIL_NAME, MAIL_NAME);
+    }
+
     public static void send(String host, String protocol, String from, String to) {
 
         // 收件人电子邮箱
@@ -30,7 +38,7 @@ public class SendAuthEmailUtil {
         // 获取默认session对象
         Session session = Session.getDefaultInstance(properties, new Authenticator() {
             public PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("785155409@qq.com", "hai!@#87"); //发件人邮件用户名、密码
+                return new PasswordAuthentication(MAIL_NAME, MAIL_PASS); //发件人邮件用户名、密码
             }
         });
 
@@ -51,5 +59,9 @@ public class SendAuthEmailUtil {
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }
+    }
+
+    public static void main(String[] args){
+        send();
     }
 }

@@ -819,11 +819,11 @@ public class FileUtil {
         // FileReplacePosition.CONTAINS);
         // }
 
-//         renameFileBySpecificString("C:\\Media\\Slam Dunk - HDTV x264 960×720 AAC", "[Kamigami] Slam Dunk - ", "Slam Dunk-");
+        renameFileBySpecificString("F:\\SSH-SSM\\SSH-SSM-SpringBoot-动力节点", "动力节点_SpringBoot视频教程_");
 
         // renameFileBySpecificString("D:\\KuGou\\Temp", "kgtemp", "mp3", FileReplacePosition.CONTAINS);
 
-        // zeroFillToFileName("D:\\Tutorial Videos\\SEO\\S$E$O$", 1, 2, true);
+//         zeroFillToFileName("F:\\人工智能\\人工智能开发课程(最适合大学生学的课程)【尚学堂·百战程序员201804版】\\01_人工智能开发及远景介绍（预科）【尚学堂·百战程序员】", 1, 2, true);
         // fileRenameByPosAndLen("D:\\Tutorial Videos\\PHP\\5天PHP轻松入门视频教程2015版\\apache知识", 0, 0, "Apache.");
         // numFillToFileName("D:\\Tutorial Videos\\C,C++\\黑盾技术论坛菜鸟基础起飞C++125课", 2, 1, 4, true);
 
@@ -835,136 +835,146 @@ public class FileUtil {
         // int suffixIndex = s.lastIndexOf(".");
         // System.out.println(s.subString(0, suffixIndex).concat("hai").concat(s.subString(suffixIndex)));
 
-        appendName("C:\\Tutorial Videos\\Hacker\\Hacker-网络欺骗、信息窃取", "Hacker-网络欺骗、信息窃取.", "0");
+//        appendName("D:\\[www.hd1tj.org]Jade.A.Step.Into.The.Past.Complete.HDTV.720p.2Audio.x264-HDSTV", "@HD一条街", "0");
 
-        /*for (int i = 9, j = 20; i <= j; i++) {
-            String str = "";
-            if (j >= 10 && i < 10) {
-                str = "0";
+//        File ff = new File("F:\\Golang\\GO语言20小时快速入门");
+//        for (File tf : ff.listFiles()) {
+////            String fileName = tf.getName();
+//            String prefix = "微服务.P3.";
+////            for (File f : tf.listFiles()) {
+//                String newname = tf.getParent().concat(File.separator).concat(prefix).concat(tf.getName());
+////                System.out.println(newname);
+//                tf.renameTo(new File(newname));
+////            }
+//        }
+//        for (int i = 1, j = 4; i <= j; i++) {
+//            String str = "";
+//            if (j >= 10 && i < 10) {
+//                str = "0";
+//            }
+//            str = str + i;
+////         String str = "0" + i;
+//            appendName("F:\\Golang\\beego框架深入浅出视频\\day0" + i, "D" + str + ".", "0");
+//        }
+    }
+
+    /**
+     * @author Administrator
+     */
+    static class StringUtil {
+
+        private static final String DEFAULT_SRC_CHARSET_NAME = "ISO-8859-1";
+        private static final String DEFAULT_DEST_CHARSET_NAME = "UTF-8";
+
+        /**
+         * @param str
+         * @return
+         * @throws UnsupportedEncodingException
+         */
+        public static String encodingString(String str) throws UnsupportedEncodingException {
+            return encodingString(str, DEFAULT_SRC_CHARSET_NAME, DEFAULT_DEST_CHARSET_NAME);
+        }
+
+        /**
+         * @param str
+         * @param srcCharsetName
+         * @return
+         * @throws UnsupportedEncodingException
+         */
+        public static String encodingString(String str, String srcCharsetName) throws UnsupportedEncodingException {
+            return encodingString(str, srcCharsetName, DEFAULT_DEST_CHARSET_NAME);
+        }
+
+        /**
+         * @param str
+         * @param charsetName
+         * @param isDestCharsetName
+         * @return
+         * @throws UnsupportedEncodingException
+         */
+        public static String encodingString(String str, String charsetName, boolean isDestCharsetName)
+                throws UnsupportedEncodingException {
+            if (isDestCharsetName) {
+                return encodingString(str, DEFAULT_SRC_CHARSET_NAME, charsetName);
+            } else {
+                return encodingString(str, charsetName, DEFAULT_DEST_CHARSET_NAME);
             }
-            str = str + i;
-//         String str = "0" + i;
-            appendName("C:\\Tutorial Videos\\20天精通Android开发视频\\第" + str + "天视频", "Day" + str + ".", "0");
-        }*/
-    }
-}
 
-/**
- * @author Administrator
- */
-class StringUtil {
-
-    private static final String DEFAULT_SRC_CHARSET_NAME = "ISO-8859-1";
-    private static final String DEFAULT_DEST_CHARSET_NAME = "UTF-8";
-
-    /**
-     * @param str
-     * @return
-     * @throws UnsupportedEncodingException
-     */
-    public static String encodingString(String str) throws UnsupportedEncodingException {
-        return encodingString(str, DEFAULT_SRC_CHARSET_NAME, DEFAULT_DEST_CHARSET_NAME);
-    }
-
-    /**
-     * @param str
-     * @param srcCharsetName
-     * @return
-     * @throws UnsupportedEncodingException
-     */
-    public static String encodingString(String str, String srcCharsetName) throws UnsupportedEncodingException {
-        return encodingString(str, srcCharsetName, DEFAULT_DEST_CHARSET_NAME);
-    }
-
-    /**
-     * @param str
-     * @param charsetName
-     * @param isDestCharsetName
-     * @return
-     * @throws UnsupportedEncodingException
-     */
-    public static String encodingString(String str, String charsetName, boolean isDestCharsetName)
-            throws UnsupportedEncodingException {
-        if (isDestCharsetName) {
-            return encodingString(str, DEFAULT_SRC_CHARSET_NAME, charsetName);
-        } else {
-            return encodingString(str, charsetName, DEFAULT_DEST_CHARSET_NAME);
         }
 
-    }
-
-    /**
-     * @param str
-     * @param srcCharsetName
-     * @param destCharsetName
-     * @return
-     * @throws UnsupportedEncodingException
-     */
-    public static String encodingString(String str, String srcCharsetName, String destCharsetName)
-            throws UnsupportedEncodingException {
-        if (isEmpty(str)) {
-            return str;
-        }
-
-        if (isEmpty(srcCharsetName)) {
-            srcCharsetName = DEFAULT_SRC_CHARSET_NAME;
-        } else {
-            if (!Charset.isSupported(srcCharsetName)) {
-                throw new UnsupportedEncodingException("指定的原编码方式：" + srcCharsetName + " 不是合法的编码方式！");
+        /**
+         * @param str
+         * @param srcCharsetName
+         * @param destCharsetName
+         * @return
+         * @throws UnsupportedEncodingException
+         */
+        public static String encodingString(String str, String srcCharsetName, String destCharsetName)
+                throws UnsupportedEncodingException {
+            if (isEmpty(str)) {
+                return str;
             }
-        }
 
-        if (isEmpty(destCharsetName)) {
-            destCharsetName = DEFAULT_DEST_CHARSET_NAME;
-        } else {
-            if (!Charset.isSupported(destCharsetName)) {
-                throw new UnsupportedEncodingException("指定的目标编码方式：" + destCharsetName + " 不是合法的编码方式！");
+            if (isEmpty(srcCharsetName)) {
+                srcCharsetName = DEFAULT_SRC_CHARSET_NAME;
+            } else {
+                if (!Charset.isSupported(srcCharsetName)) {
+                    throw new UnsupportedEncodingException("指定的原编码方式：" + srcCharsetName + " 不是合法的编码方式！");
+                }
             }
+
+            if (isEmpty(destCharsetName)) {
+                destCharsetName = DEFAULT_DEST_CHARSET_NAME;
+            } else {
+                if (!Charset.isSupported(destCharsetName)) {
+                    throw new UnsupportedEncodingException("指定的目标编码方式：" + destCharsetName + " 不是合法的编码方式！");
+                }
+            }
+
+            return new String(str.getBytes(Charset.forName(srcCharsetName)), Charset.forName(destCharsetName));
         }
 
-        return new String(str.getBytes(Charset.forName(srcCharsetName)), Charset.forName(destCharsetName));
-    }
+        /**
+         * @param str
+         * @return
+         */
+        public static boolean isNull(String str) {
+            return null == str;
+        }
 
-    /**
-     * @param str
-     * @return
-     */
-    public static boolean isNull(String str) {
-        return null == str;
-    }
+        /**
+         * @param str
+         * @return
+         */
+        public static boolean isEmpty(String str) {
+            return isEmpty(str, true);
+        }
 
-    /**
-     * @param str
-     * @return
-     */
-    public static boolean isEmpty(String str) {
-        return isEmpty(str, true);
-    }
+        /**
+         * @param str
+         * @param isTrim
+         * @return
+         */
+        public static boolean isEmpty(String str, boolean isTrim) {
+            return isNull(str) || (isTrim ? str.trim().isEmpty() : str.isEmpty());
+        }
 
-    /**
-     * @param str
-     * @param isTrim
-     * @return
-     */
-    public static boolean isEmpty(String str, boolean isTrim) {
-        return isNull(str) || (isTrim ? str.trim().isEmpty() : str.isEmpty());
-    }
+        /**
+         * @param str
+         * @return
+         */
+        public static boolean isNotEmpty(String str) {
+            return !isEmpty(str);
+        }
 
-    /**
-     * @param str
-     * @return
-     */
-    public static boolean isNotEmpty(String str) {
-        return !isEmpty(str);
-    }
-
-    /**
-     * @param str
-     * @param isTrim
-     * @return
-     */
-    public static boolean isNotEmpty(String str, boolean isTrim) {
-        return !isEmpty(str, isTrim);
+        /**
+         * @param str
+         * @param isTrim
+         * @return
+         */
+        public static boolean isNotEmpty(String str, boolean isTrim) {
+            return !isEmpty(str, isTrim);
+        }
     }
 }
 

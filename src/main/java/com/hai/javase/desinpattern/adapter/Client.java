@@ -13,5 +13,8 @@ public class Client {
 
         Target remote = new Adapter();
         remote.request();
+
+        remote = new Adapter2(new Adaptee());
+        remote.request();
     }
 }

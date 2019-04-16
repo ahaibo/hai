@@ -24,6 +24,13 @@ public class TestForkJoin {
     }
 
     @Test
+    public void test(){
+        test1();
+        testForkJoin();
+        testByLongStream();
+    }
+
+    @Test
     public void test1() {
         Instant start = Instant.now();
         long sum = 0L;
@@ -32,6 +39,7 @@ public class TestForkJoin {
         }
         System.out.println(sum);
         Instant end = Instant.now();
+        System.out.println("test by normal thread:");
         System.out.println(" val: " + COUNT_SUM);
         System.out.println(" sum: " + sum);
         System.out.println("time: " + Duration.between(start, end).toMillis());
@@ -47,6 +55,7 @@ public class TestForkJoin {
                 .reduce(0L, Long::sum);
 
         Instant end = Instant.now();
+        System.out.println("test by testByLongStream:");
         System.out.println(" val: " + COUNT_SUM);
         System.out.println(" sum: " + sum);
         System.out.println("time: " + Duration.between(start, end).toMillis());
@@ -64,6 +73,7 @@ public class TestForkJoin {
         long sum = pool.invoke(task);
 
         Instant end = Instant.now();
+        System.out.println("test by testForkJoin:");
         System.out.println(" val: " + COUNT_SUM);
         System.out.println(" sum: " + sum);
         System.out.println("time: " + Duration.between(start, end).toMillis());
@@ -80,8 +90,8 @@ public class TestForkJoin {
 
         @Override
         protected Long compute() {
-            long sum = 0;
             long length = end - start;
+            long sum = 0;
             if (length <= THRESHOLD) {
                 for (long i = start; i <= end; i++) {
                     sum += i;

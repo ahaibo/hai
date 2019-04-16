@@ -10,6 +10,19 @@ import java.util.List;
 public class TestDemo {
 
     @Test
+    public void testRuntime() {
+        int availableProcessors = Runtime.getRuntime().availableProcessors();
+        System.out.println("availableProcessors: " + availableProcessors);
+    }
+
+    @Test
+    public void testString() {
+        String s1 = "ab";
+        String s2 = "a" + "b";
+        System.out.println(s1 == s2);
+    }
+
+    @Test
     public void change() {
         int n = -55, m = 132;
         //int temp = n;

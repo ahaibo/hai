@@ -1,7 +1,7 @@
 /**
  *
  */
-package test.mysql;
+package com.hai.test.mysql;
 
 import com.hai.common.db.DBUtil;
 import com.hai.common.util.RandomUtil;

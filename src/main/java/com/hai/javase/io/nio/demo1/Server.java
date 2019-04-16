@@ -57,7 +57,14 @@ public class Server {
 
     public void process(ServerSocketChannel server, Selector selector) throws IOException {
         while (true) {
-            selector.select(SELECT_TIMEOUT);
+            int selects = selector.select(SELECT_TIMEOUT);
+            if (selects == 0) {
+                try {
+                    Thread.sleep(100L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             Set<SelectionKey> selectionKeys = selector.selectedKeys();
             if (selectionKeys.isEmpty()) {
                 continue;

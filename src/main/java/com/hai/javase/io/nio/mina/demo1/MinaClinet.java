@@ -28,7 +28,8 @@ public class MinaClinet {
         connector.setHandler(new MinaClinetHandler());
 
         // 第三步骤，设置过滤器
-        connector.getFilterChain().addLast("minaClinet", new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("utf-8"))));
+        connector.getFilterChain().addLast("minaClinet",
+                new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("utf-8"))));
 //        connector.getFilterChain().addLast("exec", new ExecutorFilter());
 
         // 第四步骤，连接服务器
