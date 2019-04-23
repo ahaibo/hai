@@ -10,7 +10,7 @@ public class XxlJobTestHandler extends IJobHandler {
 
     @Override
     public ReturnT<String> execute(String param) {
-        logger.info(this.getClass().getName() + ".execute. param: %s", param);
+        logger.info(this.getClass().getName() + ".action. param: %s", param);
         return null;
     }
 }

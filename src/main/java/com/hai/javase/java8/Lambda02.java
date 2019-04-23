@@ -49,7 +49,7 @@ public class Lambda02 {
 
         void execute(String content);
 
-//        void execute(int count, String content);
+//        void action(int count, String content);
     }
 
     static class DrawAction implements IAction {
@@ -60,7 +60,7 @@ public class Lambda02 {
 
         @Override
         public void execute(String content) {
-            System.out.println(this.getClass().getName() + ".execute...content is: " + content);
+            System.out.println(this.getClass().getName() + ".action...content is: " + content);
         }
     }
 

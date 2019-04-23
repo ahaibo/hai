@@ -121,9 +121,9 @@ public class RelayRace {
             if (i < 3) {
                 players[i].setNext(players[i + 1]);
 
-                exec.execute(players[i]);
+                exec.action(players[i]);
             } else {
-                exec.execute(players[3]);
+                exec.action(players[3]);
                 break;
             }
         }*/

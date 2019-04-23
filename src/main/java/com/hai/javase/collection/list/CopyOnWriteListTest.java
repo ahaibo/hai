@@ -81,4 +81,13 @@ public class CopyOnWriteListTest {
             System.out.println("iterator: " + val);
         }
     }
+
+    @Test
+    public void testFinally() {
+        try {
+            System.out.println(1 / 0);
+        } finally {
+            System.out.println("finally...");
+        }
+    }
 }

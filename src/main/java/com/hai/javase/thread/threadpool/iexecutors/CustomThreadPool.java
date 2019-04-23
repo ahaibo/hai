@@ -33,7 +33,7 @@ public class CustomThreadPool {
         // 参数的时间单位。
         TimeUnit unit = TimeUnit.MINUTES;
 
-        // 执行前用于保持任务的队列。此队列仅保持由 execute 方法提交的 Runnable 任务。
+        // 执行前用于保持任务的队列。此队列仅保持由 action 方法提交的 Runnable 任务。
         int runnableQueueCapacity = maximumPoolSize * 2;
 
         BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(runnableQueueCapacity);
@@ -67,7 +67,7 @@ public class CustomThreadPool {
         long start1 = System.nanoTime();
         for (int i = 0; i < threadList.size(); i++) {
             // 将线程放入池中进行执行
-//            customThreadPoolExecutor.execute(threadList.read(i));
+//            customThreadPoolExecutor.action(threadList.read(i));
             customThreadPoolExecutor.submit(threadList.get(i));
         }
 
