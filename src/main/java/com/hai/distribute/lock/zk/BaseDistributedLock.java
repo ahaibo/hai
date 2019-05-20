@@ -1,8 +1,8 @@
 package com.hai.distribute.lock.zk;
 
-import com.github.zkclient.IZkDataListener;
-import com.github.zkclient.ZkClient;
-import com.github.zkclient.exception.ZkNoNodeException;
+import org.I0Itec.zkclient.IZkDataListener;
+import org.I0Itec.zkclient.ZkClient;
+import org.I0Itec.zkclient.exception.ZkNoNodeException;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -74,8 +74,14 @@ public class BaseDistributedLock {
                     final CountDownLatch latch = new CountDownLatch(1);
                     final IZkDataListener previousListener = new IZkDataListener() {
 
+//                        @Override
+//                        public void handleDataChange(String dataPath, byte[] data) throws Exception {
+//                            System.out.println(this.getClass().getName() + ".handleDataChange...");
+//                            System.out.println("dataPath: " + dataPath + "; data: " + data);
+//                        }
+
                         @Override
-                        public void handleDataChange(String dataPath, byte[] data) throws Exception {
+                        public void handleDataChange(String dataPath, Object data) throws Exception {
                             System.out.println(this.getClass().getName() + ".handleDataChange...");
                             System.out.println("dataPath: " + dataPath + "; data: " + data);
                         }

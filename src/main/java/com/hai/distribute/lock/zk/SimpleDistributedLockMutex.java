@@ -1,6 +1,6 @@
 package com.hai.distribute.lock.zk;
 
-import com.github.zkclient.ZkClient;
+import org.I0Itec.zkclient.ZkClient;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -53,6 +53,7 @@ public class SimpleDistributedLockMutex extends BaseDistributedLock implements D
     /**
      * 获取锁，直到超时，超时后抛出异常
      */
+    @Override
     public void acquire() throws Exception {
         //-1表示不设置超时时间，超时由Zookeeper决定
         if (!internalLock(-1, null)) {
@@ -64,7 +65,7 @@ public class SimpleDistributedLockMutex extends BaseDistributedLock implements D
     /**
      * 获取锁，带有超时时间
      */
-
+    @Override
     public boolean acquire(long time, TimeUnit unit) throws Exception {
         return internalLock(time, unit);
     }
@@ -72,6 +73,7 @@ public class SimpleDistributedLockMutex extends BaseDistributedLock implements D
     /**
      * 释放锁
      */
+    @Override
     public void release() throws Exception {
         releaseLock(ourLockPath);
     }
