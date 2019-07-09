@@ -3,26 +3,28 @@ package com.hai.common.util;
 import org.junit.Test;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
  * @author Administrator
  */
 public class RandomUtil {
-    /**
-     * 最小整数
-     */
+    /** 最小整数 */
     private static final int DEFATULT_MIN_NUM = 1;
-    /**
-     * 最小整百数
-     */
+    /** 最小整百数 */
     private static final int DEFATULT_MIN_NUM_BY_HUNDRED = 100;
-
-    /**
-     * 最大整数
-     */
+    /** 最大整数 */
     private static final int DEFATULT_MAX_NUM = Integer.MAX_VALUE;
-
+    public static final String NUMBER_CHARACTERS = "123456789";
+    public static final String CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static final String ALL_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+    public static final String EMALS[] = {"@163.com", "@sina.com", "@sohu.com", "@gmail.com"};
+    public static final int CHARACTERS_LENGTH = CHARACTERS.length();
+    public static final int ALL_CHARACTERS_LENGTH = ALL_CHARACTERS.length();
+    public static final int NUMBER_CHARACTERS_LENGTH = NUMBER_CHARACTERS.length();
+    public static final int EMALS_LENGTH = EMALS.length;
     static final String CHAR_CACHES[] =
             {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
                     "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
@@ -208,5 +210,65 @@ public class RandomUtil {
                 break;
         }
         return str;
+    }
+
+    public static String randomRangeCharacters(int min, int max) {
+        Integer[] range = getRangeNumbers(min, max);
+        return randomCharacters(range[randomNumber(range.length)]);
+    }
+
+    public static String randomCharacters(int length) {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            str.append(CHARACTERS.charAt(randomNumber(CHARACTERS_LENGTH)));
+        }
+        return str.toString();
+    }
+
+    public static String randomNumbers(int length) {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            str.append(NUMBER_CHARACTERS.charAt(randomNumber(NUMBER_CHARACTERS_LENGTH)));
+        }
+        return str.toString();
+    }
+
+    public static String randomMobile() {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < 10; i++) {
+            str.append(randomNumber(10));
+        }
+        return 1 + str.toString();
+    }
+
+    public static String randomEmail() {
+        int[] range = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24};
+        String email = EMALS[randomNumber(EMALS_LENGTH)];
+        return randomCharacters(range[randomNumber(range.length)]) + email;
+    }
+
+    public static int randomNumber(int range) {
+        return new Random().nextInt(range);
+    }
+
+    public static int randomNumber(int range, int min) {
+        int num = new Random().nextInt(range);
+        return num < min ? min + num : num;
+    }
+
+    public static int randomNumber(int range, int min, int max) {
+        if (min > max) {
+            max = min;
+        }
+        int num = new Random().nextInt(range);
+        return num < min ? min + num : num > max ? max : num;
+    }
+
+    public static Integer[] getRangeNumbers(int min, int max) {
+        List<Integer> list = new ArrayList<>();
+        for (int i = min; i <= max; i++) {
+            list.add(i);
+        }
+        return list.toArray(new Integer[list.size()]);
     }
 }

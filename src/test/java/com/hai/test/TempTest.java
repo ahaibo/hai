@@ -16,6 +16,7 @@ public class TempTest {
 
     @Test
     public void test() {
+        System.out.println(Integer.MAX_VALUE);
         System.out.println(Long.MAX_VALUE);
     }
 

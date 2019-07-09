@@ -7,7 +7,7 @@ public class BitMap {
 
     private static final int N = 10000000;
 
-    private int[] a = new int[N / 32 + 1];
+    private int[] array = new int[N / 32 + 1];
 
     /**
      * 设置所在的bit位为1
@@ -15,28 +15,28 @@ public class BitMap {
      * @param n
      */
     public void addValue(int n) {
-        //row = n / 32 求十进制数在数组a中的下标
+        //row = n / 32 求十进制数在数组 array 中的下标
         int row = n >> 5;
-        //相当于 n % 32 求十进制数在数组a[i]中的下标
-        a[row] |= 1 << (n & 0x1F);
+        //相当于 n % 32 求十进制数在数组 array[i] 中的下标
+        array[row] |= 1 << (n & 0x1F);
     }
 
     // 判断所在的bit为是否为1
     public boolean exits(int n) {
         int row = n >> 5;
-        return (a[row] & (1 << (n & 0x1F))) != 1;
+        return (array[row] & (1 << (n & 0x1F))) != 1;
     }
 
     public void display(int row) {
         System.out.println("BitMap位图展示");
         for (int i = 0; i < row; i++) {
             List<Integer> list = new ArrayList<Integer>();
-            int temp = a[i];
+            int temp = array[i];
             for (int j = 0; j < 32; j++) {
                 list.add(temp & 1);
                 temp >>= 1;
             }
-            System.out.println("a[" + i + "]" + list);
+            System.out.println("array[" + i + "]" + list);
         }
     }
 

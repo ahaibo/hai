@@ -12,7 +12,7 @@ import org.junit.Test;
  * Created by Administrator on 2017/12/12.
  */
 public class MyCrawlerController {
-    String crawlStorageFolder = "D:\\Data\\test\\crawler\\crawler4j\\crawl"; // 定义爬虫数据存储位置
+    String crawlStorageFolder = "C:\\Work\\Data\\test\\crawler\\crawler4j\\crawl"; // 定义爬虫数据存储位置
     int numberOfCrawlers = 7; // 定义7个爬虫，也就是7个线程
 
     @Test
