@@ -1,6 +1,5 @@
 package com.hai.common.cache;
 
-import com.alibaba.fastjson.JSONObject;
 import com.hai.common.util.SpringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +7,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Redis 大 key Map 操作类
@@ -48,7 +48,7 @@ public class RedisBigMap {
         if (isEmpty(key) || isEmpty(hashKey)) {
             return this;
         }
-        String realKey = realKey(key);
+        String realKey = realKey(key, hashKey);
         this.redisTemplate.opsForHash().put(realKey, hashKey, value);
         logger.info("put realKey:{} hashKey:{} value:{} succeed.", realKey, hashKey, value);
         return this;
@@ -58,25 +58,32 @@ public class RedisBigMap {
         if (isEmpty(key)) {
             return new HashMap<>();
         }
-        Map<String, Object> map = this.redisTemplate.opsForHash().entries(realKey(key));
-        return map;
+        Map<String, Object> result = new HashMap<>();
+        Set<String> keys = this.redisTemplate.keys(key + "*");
+        for (String curr : keys) {
+            Map<String, Object> map = this.redisTemplate.opsForHash().entries(curr);
+            if (null != map) {
+                result.putAll(map);
+            }
+        }
+        return result;
     }
 
     public Object get(String key, String hashKey) {
         if (isEmpty(key) || isEmpty(hashKey)) {
             return null;
         }
-        String realKey = realKey(key);
+        String realKey = realKey(key, hashKey);
         Object value = this.redisTemplate.opsForHash().get(realKey, hashKey);
         logger.info("get realKey:{} hashKey:{} value:{} succeed.", realKey, hashKey, value);
         return value;
     }
 
-    public RedisBigMap delete(String key) {
+    public RedisBigMap delete(String key, String hashKey) {
         if (isEmpty(key)) {
             return this;
         }
-        String realKey = realKey(key);
+        String realKey = realKey(key, hashKey);
         this.redisTemplate.delete(realKey);
         logger.info("delete realKey:{} succeed.", realKey);
         return this;
@@ -86,15 +93,17 @@ public class RedisBigMap {
         if (isEmpty(key) || null == hashKeys || hashKeys.length == 0) {
             return this;
         }
-        String realKey = realKey(key);
-        Long effects = this.redisTemplate.opsForHash().delete(realKey(key), hashKeys);
-        logger.info("delete realKey:{} hashKeys:{}  succeed. effects values:{}.", realKey, JSONObject.toJSONString(hashKeys), effects);
+        for (String curr : hashKeys) {
+            String realKey = realKey(key, curr);
+            Long effects = this.redisTemplate.opsForHash().delete(realKey);
+            logger.info("delete realKey:{} hashKey:{}  succeed. effects values:{}.", realKey, curr, effects);
+        }
         return this;
     }
 
-    protected String realKey(String key) {
-        String realKey = key + "_" + hash(key);
-        logger.info("realKey: {}, for origin key:{}.", realKey, key);
+    protected String realKey(String key, String hashKey) {
+        String realKey = key + "_" + hash(hashKey);
+        logger.info("realKey: {}, for origin key:{}; hashKey:{}.", realKey, key, hashKey);
         return realKey;
     }
 
