@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue 2 Demo Page</title>
+    <script type="text/javascript" src="../../../js/library/jquery-2.0.3.js"></script>
+    <script type="text/javascript" src="../../../js/library/vue.2.6.10.js"></script>
+</head>
+<body>
+
+<div id="vue-id">
+    <div>name:{{name}}</div>
+    <div>age:{{age}}</div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var vm = new Vue({
+            el: "#vue-id",
+            data: {
+                name: "hai",
+                age: 20
+            },
+            computed: {
+                info: function () {
+                    return "name:" + this.name + '; age:' + this.age
+                }
+            },
+            created: function () {
+                console.log("created...")
+                this.init()
+            },
+            methods: {
+                init: function () {
+                    console.log("vue-id method init execution...")
+                }
+            }
+        });
+    })
+</script>
+</body>
+</html>

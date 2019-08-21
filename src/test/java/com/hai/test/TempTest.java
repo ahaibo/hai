@@ -106,9 +106,7 @@ public class TempTest {
         if (i > 0) {
             return i + diGui(i - 1);
         }
-
         return i;
-
     }
 
 }

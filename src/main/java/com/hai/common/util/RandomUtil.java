@@ -30,6 +30,32 @@ public class RandomUtil {
                     "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
     /**
+     * 生成指定位数的随机数
+     *
+     * @param length 长度
+     * @return
+     */
+    public static Integer getRandomOne(int length) {
+        Double max = Math.pow(10, length);
+        Double min = Math.pow(10, length - 1);
+        return getRandomOne(min.intValue(), max.intValue());
+    }
+
+    /**
+     * 生成单个随机数
+     * start 和 end 组成一个区间 [start, end) , 生成的随机数将 大于等于 start 并且 小于end
+     *
+     * @param start 开始数字（包含在内）
+     * @param end   结束数字（不包含在内）
+     * @return
+     */
+    public static Integer getRandomOne(int start, int end) {
+        // 创建Random对象
+        Random random = new Random();
+        return random.nextInt(end - start) + start;
+    }
+
+    /**
      * 产生整百的整数
      *
      * @param minNum
@@ -89,18 +115,6 @@ public class RandomUtil {
         } while (result < minNum || result > maxNum);
 
         return Double.valueOf(numberFormat.format(result));
-    }
-
-    public static void main(String[] args) {
-        // 取整百
-        // System.out.println(12345 / 100 * 100);
-
-        for (int i = 0; i < 100; i++) {
-            // System.out.println(random(500f, 9999.5f));
-            // System.out.println(randomBoolean());
-            System.out.println(randomInt(15));
-        }
-
     }
 
     /**
@@ -270,5 +284,17 @@ public class RandomUtil {
             list.add(i);
         }
         return list.toArray(new Integer[list.size()]);
+    }
+
+    public static void main(String[] args) {
+        // 取整百
+        // System.out.println(12345 / 100 * 100);
+
+        for (int i = 0; i < 100; i++) {
+            // System.out.println(random(500f, 9999.5f));
+            // System.out.println(randomBoolean());
+            System.out.println(randomInt(15));
+        }
+
     }
 }

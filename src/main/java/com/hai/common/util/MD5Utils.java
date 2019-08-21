@@ -16,7 +16,7 @@ public class MD5Utils {
 
     /*** 
      * MD5加密 生成32位md5码
-     * @param 待加密字符串
+     * @param inStr 待加密字符串
      * @return 返回32位md5码
      */
     public static String md5Encode(String inStr) throws Exception {
@@ -50,8 +50,6 @@ public class MD5Utils {
      * @param password
      * @return
      * @throws Exception
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException
      */
     public static String getEncryptedPwd(String password) throws Exception {
         try {
@@ -89,8 +87,6 @@ public class MD5Utils {
      * @param passwrod
      * @return
      * @throws Exception
-     * @throws UnsupportedEncodingException
-     * @throws NoSuchAlgorithmException
      */
     public static byte[] encrypte(byte[] salt, String passwrod) throws Exception {
         try {
@@ -112,7 +108,7 @@ public class MD5Utils {
     /**
      * 将指定byte数组转换成16进制字符串（大写）
      *
-     * @param b
+     * @param bytes
      * @return
      */
     public static String byteToHexString(byte[] bytes) {
@@ -139,8 +135,6 @@ public class MD5Utils {
      * @param passwordInDb
      * @return
      * @throws Exception
-     * @throws NoSuchAlgorithmException
-     * @throws UnsupportedEncodingException
      */
     public static boolean validPassword(String password, String passwordInDb) throws Exception {
         try {
