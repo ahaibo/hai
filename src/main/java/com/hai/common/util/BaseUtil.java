@@ -107,7 +107,7 @@ public class BaseUtil {
      * @return: java.lang.String
      */
     public static String AesEncrypt(String data) {
-        return com.caipiao.core.library.security.AESUtil.encrypt(data, Constants.AES_KEY);
+        return AESUtil.encrypt(data, Constants.AES_KEY);
     }
 
     /**
@@ -119,7 +119,7 @@ public class BaseUtil {
      * @return: java.lang.String
      */
     public static String AesDecrypt(String data) {
-        return com.caipiao.core.library.security.AESUtil.decrypt(data, Constants.AES_KEY);
+        return AESUtil.decrypt(data, Constants.AES_KEY);
     }
 
 }

@@ -431,6 +431,12 @@
             <groupId>com.netflix.hystrix</groupId>
             <artifactId>hystrix-core</artifactId>
             <version>1.5.12</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>rxjava</artifactId>
+                    <groupId>io.reactivex</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
