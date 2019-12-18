@@ -33,7 +33,7 @@ public class Subscriber1 {
         Destination destination = null;
         MessageConsumer consumer = null;
         try {
-            factory = new ActiveMQConnectionFactory(NAME, PASSWORD, BROKER_URL);
+            factory = new ActiveMQConnectionFactory("cptuatactivemqrw", "cptuatactivemqrw", "ssl://activemquat.cptuat.net:61617");
             connection = factory.createConnection();
             connection.start();
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -44,6 +44,7 @@ public class Subscriber1 {
         } catch (JMSException e) {
             e.printStackTrace();
         } finally {
+            System.out.println(1);
         }
     }
 

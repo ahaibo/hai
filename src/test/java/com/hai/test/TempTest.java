@@ -6,6 +6,7 @@ package test;
 import org.apache.groovy.util.Maps;
 import org.junit.Test;
 
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -107,6 +108,81 @@ public class TempTest {
             return i + diGui(i - 1);
         }
         return i;
+    }
+
+    @Test
+    public void test2() {
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 100000; i++) {
+            String betNumber = "特码@19,18,17,21,22,23,24,25,26,47,48";
+            betNumber.split("@");
+        }
+        long end = System.currentTimeMillis();
+        System.out.println(end - start);
+    }
+
+    @Test
+    public void updateUserType() {
+        for (int i = 0; i < 100; i++) {
+            String suffix = i + "";
+            if (i < 10) {
+                suffix = "0" + suffix;
+            }
+            System.out.println("update app_member set user_type=5 where account='ceshi" + suffix + "';");
+        }
+    }
+
+    @Test
+    public void updateVipGrade() {
+        String filePath = "C:\\Users\\Administrator\\Documents\\xgc.id.txt";
+        BufferedReader bufferedReader = null;
+        try {
+            bufferedReader = new BufferedReader(new FileReader(filePath));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+//                System.out.println("update app_member set vip_id=5 where account='" + line + "';");
+//                System.out.println("update app_member set user_type=5 where account='" + line + "';");
+//                System.out.print("" + line + ",");
+                System.out.print("APP_MEMBER_" + line + ",");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != bufferedReader) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Test
+    public void clearMemberCache() {
+        String filePath = "";
+        BufferedReader bufferedReader = null;
+        try {
+            bufferedReader = new BufferedReader(new FileReader(filePath));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.print("APP_MEMBER_" + line + ",");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != bufferedReader) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }

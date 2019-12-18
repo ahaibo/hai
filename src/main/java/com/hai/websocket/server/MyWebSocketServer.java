@@ -1,4 +1,6 @@
-package com.hai.websocket;
+package com.hai.websocket.server;
+
+import com.hai.websocket.WebSocketMapUtil;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -7,12 +9,12 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 //该注解用来指定一个URI，客户端可以通过这个URI来连接到WebSocket。类似Servlet的注解mapping。无需在web.xml中配置。
 @ServerEndpoint("/websocket")
-public class MyWebSocket {
+public class MyWebSocketServer {
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static int onlineCount = 0;
 
     //concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。若要实现服务端与单一客户端通信的话，可以使用Map来存放，其中Key可以为用户标识
-    private static CopyOnWriteArraySet<MyWebSocket> webSocketSet = new CopyOnWriteArraySet<MyWebSocket>();
+    private static CopyOnWriteArraySet<MyWebSocketServer> webSocketSet = new CopyOnWriteArraySet<MyWebSocketServer>();
 
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private Session session;
@@ -25,7 +27,8 @@ public class MyWebSocket {
     @OnOpen
     public void onOpen(Session session) {
         this.session = session;
-        webSocketSet.add(this);     //加入set中
+        //webSocketSet.add(this);     //加入set中
+        WebSocketMapUtil.put(session.getId(), this);
         addOnlineCount();           //在线数加1
         System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
     }
@@ -35,7 +38,8 @@ public class MyWebSocket {
      */
     @OnClose
     public void onClose() {
-        webSocketSet.remove(this);  //从set中删除
+//        webSocketSet.remove(this);  //从set中删除
+        WebSocketMapUtil.remove(session.getId());
         subOnlineCount();           //在线数减1    
         System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
     }
@@ -47,18 +51,20 @@ public class MyWebSocket {
      * @param session 可选的参数
      */
     @OnMessage
-    public void onMessage(String message, Session session) {
+    public void onMessage(String message, Session session) throws IOException {
         System.out.println("来自客户端的消息:" + message);
-
         //群发消息
-        for (MyWebSocket item : webSocketSet) {
-            try {
-                item.sendMessage(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-                continue;
-            }
-        }
+//        for (MyWebSocketServer item : WebSocketMapUtil.getValues()) {
+//            try {
+//                item.sendMessage(message);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                continue;
+//            }
+//        }
+        MyWebSocketServer socketServer = WebSocketMapUtil.get(session.getId());
+        String result = "收到来自" + session.getId() + "的消息" + message;
+        socketServer.sendMessage(result);
     }
 
     /**
@@ -89,10 +95,10 @@ public class MyWebSocket {
     }
 
     public static synchronized void addOnlineCount() {
-        MyWebSocket.onlineCount++;
+        MyWebSocketServer.onlineCount++;
     }
 
     public static synchronized void subOnlineCount() {
-        MyWebSocket.onlineCount--;
+        MyWebSocketServer.onlineCount--;
     }
 }

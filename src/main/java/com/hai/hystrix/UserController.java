@@ -24,7 +24,7 @@ public class UserController {
 
     @RequestMapping("/user/createOrderByHystrix")
     public ResponseEntity<String> createOrderByHystrix() {
-        String result = new LimitFllowCommand(restTemplate).execute();
+        String result =null; /*new LimitFllowCommand(restTemplate).execute();*/
         System.out.println("result: " + result);
         return ResponseEntity.ok(result);
     }

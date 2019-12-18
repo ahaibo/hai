@@ -1,6 +1,9 @@
 package com.hai.common.util;
 
 import java.io.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class SqlUtil {
 
@@ -14,9 +17,17 @@ public class SqlUtil {
             try {
                 fileReader = new FileReader(file);
                 bufferedReader = new BufferedReader(fileReader);
+                Set set = new HashSet();
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
-                    sql.append(quotation).append(line).append(quotation).append(",");
+                    //sql.append(quotation).append(line).append(quotation).append(",");
+                    set.add(line);
+                }
+                if (set.size() > 0) {
+                    Iterator iterator = set.iterator();
+                    while (iterator.hasNext()) {
+                        sql.append(quotation).append(iterator.next()).append(quotation).append(",");
+                    }
                 }
                 return sql.length() > 1 ? sql.substring(0, sql.length() - 1) : sql.toString();
             } catch (FileNotFoundException e) {
@@ -36,4 +47,7 @@ public class SqlUtil {
         return "";
     }
 
+    public static void main(String[] args) {
+        System.out.println(genInString("C:\\Users\\Administrator\\Documents\\ordersn.txt", "'"));
+    }
 }

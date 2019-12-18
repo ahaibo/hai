@@ -30,7 +30,7 @@ public class Publisher {
         Destination destination = null;
         MessageProducer producer = null;
         try {
-            factory = new ActiveMQConnectionFactory(NAME, PASSWORD, BROKER_URL);
+            factory = new ActiveMQConnectionFactory("cptuatactivemqrw", "cptuatactivemqrw", "ssl://activemquat.cptuat.net:61617");
             connection = factory.createConnection();
             connection.start();
             session = connection.createSession(true, Session.AUTO_ACKNOWLEDGE);
