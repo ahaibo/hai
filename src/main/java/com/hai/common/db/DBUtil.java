@@ -106,17 +106,16 @@ public class DBUtil {
             try {
                 /*
                  * 解决异常：java.sql.SQLException: 对只转发结果集的无效操作: first
-				 * 
-				 * 1. ResultSet.TYPE_FORWARD_ONLY (默认方式，略) <br/>
-				 * 2.ResultSet.TYPE_SCROLL_INSENSITIVE
-				 * 双向滚动，但不及时更新，就是如果数据库里的数据修改过，并不在ResultSet中反应出来。 <br/>
-				 * 3.ResultSet.TYPE_SCROLL_SENSITIVE
-				 * 双向滚动，并及时跟踪数据库里的更新,以便更改ResultSet中的数据。<br/>
-				 * 4.ResultSet.CONCUR_READ_ONLY 只读取ResultSet <br/>
-				 * 5.ResultSet.CONCUR_UPDATABLE 用ResultSet更新数据库
-				 */
-                preparedStatement = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
-                        ResultSet.CONCUR_READ_ONLY);
+                 *
+                 * 1. ResultSet.TYPE_FORWARD_ONLY (默认方式，略) <br/>
+                 * 2.ResultSet.TYPE_SCROLL_INSENSITIVE
+                 * 双向滚动，但不及时更新，就是如果数据库里的数据修改过，并不在ResultSet中反应出来。 <br/>
+                 * 3.ResultSet.TYPE_SCROLL_SENSITIVE
+                 * 双向滚动，并及时跟踪数据库里的更新,以便更改ResultSet中的数据。<br/>
+                 * 4.ResultSet.CONCUR_READ_ONLY 只读取ResultSet <br/>
+                 * 5.ResultSet.CONCUR_UPDATABLE 用ResultSet更新数据库
+                 */
+                preparedStatement = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 setSqlParameter(preparedStatement, params);
                 resultSet = preparedStatement.executeQuery();
 
@@ -125,6 +124,9 @@ public class DBUtil {
                 e.printStackTrace();
             }
         }
+
+        //在外层关闭
+        //closeAll(resultSet, preparedStatement, statement, connection);
 
         return map;
     }
@@ -137,7 +139,9 @@ public class DBUtil {
      * @param preparedStatement
      * @param connection
      */
-    private void makeResult(Map<String, Object> map, ResultSet resultSet, Statement statement,
+    private void makeResult(Map<String, Object> map,
+                            ResultSet resultSet,
+                            Statement statement,
                             PreparedStatement preparedStatement, Connection connection) {
         map.put("resultSet", resultSet);
         map.put("statement", statement);

@@ -134,7 +134,8 @@ public class TempTest {
 
     @Test
     public void updateVipGrade() {
-        String filePath = "C:\\Users\\Administrator\\Documents\\xgc.id.txt";
+//        String filePath = "C:\\Users\\Administrator\\Documents\\xgc.id.txt";
+        String filePath = "D:\\hai\\Notes\\account\\lht-id.txt";
         BufferedReader bufferedReader = null;
         try {
             bufferedReader = new BufferedReader(new FileReader(filePath));
@@ -162,13 +163,13 @@ public class TempTest {
 
     @Test
     public void clearMemberCache() {
-        String filePath = "";
+        String filePath = "D:\\hai\\Notes\\account\\lht-account.txt";
         BufferedReader bufferedReader = null;
         try {
             bufferedReader = new BufferedReader(new FileReader(filePath));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                System.out.print("APP_MEMBER_" + line + ",");
+                System.out.print("'" + line + "',");
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -185,4 +186,14 @@ public class TempTest {
         }
     }
 
+    @Test
+    public void test3() {
+        for (int i = 0; i < 100000; i++) {
+            long time1 = System.currentTimeMillis(), time2 = time1 / 1000;
+            System.out.print(time1);
+            System.out.print(",");
+            System.out.print(time2);
+            System.out.println();
+        }
+    }
 }

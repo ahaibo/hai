@@ -33,6 +33,7 @@ public class Constants {
 
     public static final String IUSERMANAGER_MAIN_PAGE = PROJECT_PREFIX + "/iusermanager/main.jsp";
 
+//    public static final String DEFAULT_DB_PROPERTIES_FILA_PATH = "com/hai/javase/servlet/iusermanager/DB.properties";
     public static final String DEFAULT_DB_PROPERTIES_FILA_PATH = "com/hai/javase/servlet/iusermanager/DB.properties";
 
     public static final String FILE_UPLOAD_PATH = "/static/images/";
