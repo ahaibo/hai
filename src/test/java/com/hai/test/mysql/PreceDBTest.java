@@ -18,9 +18,12 @@ import java.util.Date;
  * @author Administrator
  */
 public class PreceDBTest {
+    static String TABLE_NAME = "app_member";
+
     public static void main(String[] args) throws IOException {
         String propFilePath = "properties/precp.properties";
-        String sql = "select account from app_member_bak5 WHERE deleted = 0 GROUP BY LOWER(account) HAVING count(LOWER(account)) > 1 ORDER BY account;";
+        String sql = "select account from " + TABLE_NAME + " WHERE deleted = 0 GROUP BY LOWER(account) HAVING count(LOWER(account)) > 1 ORDER BY account;";
+
         DBUtil dbUtil = DBUtil.newInstance(propFilePath);
 
         Map<String, Object> map = dbUtil.query(sql);
@@ -37,7 +40,7 @@ public class PreceDBTest {
         try {
             while (resultSet.next()) {
                 String account = resultSet.getString(1);
-                String queryRepeatAccountSql = "SELECT id,account,phone,vip_id,bet_amount,pay_amount,real_name,user_type from app_member_bak5 where LOWER(account) like '" + account.toLowerCase() + "' order by pay_amount asc";
+                String queryRepeatAccountSql = "SELECT id,account,phone,vip_id,bet_amount,pay_amount,real_name,user_type from " + TABLE_NAME + " where LOWER(account) like '" + account.toLowerCase() + "' order by pay_amount asc";
                 PreparedStatement preparedStatement2 = connection.prepareStatement(queryRepeatAccountSql);
                 ResultSet resultSet2 = preparedStatement2.executeQuery();
                 if (null == resultSet2) {
@@ -89,6 +92,7 @@ public class PreceDBTest {
 
                 dbUtil.closeAll(resultSet2, preparedStatement2, null, null);
             }
+            System.out.println("finished...");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -99,7 +103,7 @@ public class PreceDBTest {
 
     private static void updateAccount(List<Map<String, Object>> entries, Connection connection, DBUtil dbUtil) throws SQLException {
         int size = entries.size();
-        String suffix = "rename";
+        String suffix = "RENAME";
         String accountLabel = "account";
         String phoneLabel = "phone";
         if (size == 2) {
@@ -126,7 +130,7 @@ public class PreceDBTest {
     }
 
     private static int toUpdateAccount(String account, String oldAccount, Connection connection, DBUtil dbUtil) throws SQLException {
-        String sql = "update app_member_bak5 set account='" + account + "' where account='" + oldAccount + "';";
+        String sql = "update " + TABLE_NAME + " set account='" + account + "' where account='" + oldAccount + "';";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         int rows = preparedStatement.executeUpdate();
         System.out.println(oldAccount + "\t\t\t" + account);

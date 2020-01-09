@@ -3,6 +3,8 @@
  */
 package test;
 
+import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import org.apache.groovy.util.Maps;
 import org.junit.Test;
 
@@ -195,5 +197,16 @@ public class TempTest {
             System.out.print(time2);
             System.out.println();
         }
+    }
+
+    @Test
+    public void test4() {
+        List<String[]> list = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            list.add(new String[]{"管理员账号" + i, "客户账号" + i, "客户账号" + i});
+        }
+
+        System.out.println(JSONObject.toJSONString(list));
     }
 }
