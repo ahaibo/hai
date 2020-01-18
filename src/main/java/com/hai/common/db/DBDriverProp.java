@@ -19,7 +19,7 @@ public class DBDriverProp extends Properties {
     private String dbPropFilePath;
     private static DBDriverProp instance;
 
-    private DBDriverProp() throws Exception {
+    public DBDriverProp() throws Exception {
         InputStream is = this.getClass().getClassLoader().getResourceAsStream(DEFAULT_DB_PROPERTIES_FILA_PATH);
         try {
             load(is);
@@ -28,7 +28,7 @@ public class DBDriverProp extends Properties {
         }
     }
 
-    private DBDriverProp(String dbPropFilePath) throws Exception {
+    public DBDriverProp(String dbPropFilePath) throws Exception {
         DEFAULT_DB_PROPERTIES_FILA_PATH = dbPropFilePath;
         InputStream is = this.getClass().getClassLoader().getResourceAsStream(DEFAULT_DB_PROPERTIES_FILA_PATH);
         try {

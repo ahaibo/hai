@@ -30,7 +30,11 @@ public class DBUtil {
     }
 
     public Connection getConnection() throws IOException {
-        return getConnection(null);
+        return getConnection(false);
+    }
+
+    public Connection getConnection(boolean forceInstance) throws IOException {
+        return getConnection(null, forceInstance);
     }
 
     /**
@@ -40,13 +44,17 @@ public class DBUtil {
      * @return
      * @throws IOException
      */
-    public Connection getConnection(String propFilePath) throws IOException {
+    public Connection getConnection(String propFilePath, boolean forceInstance) throws IOException {
         Connection connection = null;
 
         // 读取驱动配置信息
         DBDriverProp dbDriverProp = null;
         try {
-            dbDriverProp = DBDriverProp.newInstance(propFilePath);
+            if (forceInstance) {
+                dbDriverProp = new DBDriverProp(propFilePath);
+            } else {
+                dbDriverProp = DBDriverProp.newInstance(propFilePath);
+            }
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -65,6 +73,7 @@ public class DBUtil {
         try {
             Class.forName(className);
             connection = DriverManager.getConnection(url, userName, userPass);
+            System.out.println("\n\n连接数据库成功：" + url + "\n\n");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -91,7 +100,7 @@ public class DBUtil {
         PreparedStatement preparedStatement = null;
         Connection connection = null;
 
-        connection = isEmpty(propFilePath) ? getConnection() : getConnection(propFilePath);
+        connection = isEmpty(propFilePath) ? getConnection() : getConnection(propFilePath, false);
 
         if (isEmpty(params)) {
             try {
@@ -164,7 +173,7 @@ public class DBUtil {
 
         int result = 0;
 
-        connection = isEmpty(propFilePath) ? getConnection() : getConnection(propFilePath);
+        connection = isEmpty(propFilePath) ? getConnection() : getConnection(propFilePath, false);
 
         if (isEmpty(params)) {
             try {
