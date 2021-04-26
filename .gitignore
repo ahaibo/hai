@@ -6,3 +6,4 @@
 .classpath
 /hai.iml
 *.iml
+/logs/*

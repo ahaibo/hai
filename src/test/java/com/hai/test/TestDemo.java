@@ -80,6 +80,12 @@ public class TestDemo {
 
         future.addListener(future1 -> System.out.println("testListenableFuture4Netty result:" + future1.get()));
         System.out.println("testListenableFuture4Netty Main Done ...");
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -102,18 +108,23 @@ public class TestDemo {
         Futures.addCallback(future, new FutureCallback<Integer>() {
             @Override
             public void onSuccess(Integer result) {
-                System.out.println("testListenableFuture4Guava Future return value " + result);
+                System.out.println("testListenableFuture4Guava Future return value:" + result);
             }
 
             @Override
             public void onFailure(Throwable t) {
                 System.out.println("testListenableFuture4Guava Future occur error:" + t.getMessage());
             }
-        });
+        }, executor);
 
         System.out.println("testListenableFuture4Guava ... Main thread Done ...");
 
-        executor.shutdown();
+        //executor.shutdown();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
