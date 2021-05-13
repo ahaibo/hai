@@ -1,0 +1,419 @@
+wos-football lottery design
+
+概述[基于 WE 结构，共用基础服务]
+wos-backend
+新增服务：
+订单服务 wos-football-order
+	提供服务：下单，撤单，订单查询
+	服务依赖：wos-data-center, app-account, app-member
+	
+结算服务 wos-football-settlement
+	提供服务：结算
+	服务依赖：wos-data-center, wos-football-order, app-account
+
+DB
+	wos_football_order
+	
+玩法：
+	一级玩法：玩法大类
+		1：胜平负
+		2：比分
+		3：总进球 - 无二级玩法
+		4：半全场 - 无二级玩法
+		
+	二级玩法：玩法小类
+		11：胜平负；12：让球胜平负
+		21：胜比分；22：平比分；23：负比分
+		30：总进球
+		40：半全场
+		
+	玩法TAG
+		每个二级玩法下的具体玩法值，编号从01开始递增
+		1101
+		1202
+	示例：FootballPlayEnum.java
+	
+	
+业务设计概述[共用WE基础服务，其它中间件kafka，redis，zk，xxljob等略]
+订单服务
+wos-football-order
+	依赖
+	wos-data-center, app-account, app-member
+	
+	业务
+	状态管理
+	订单状态
+	主订单状态：总的状态
+		1:待扣款 2:待开奖 3:开奖中 5:未中奖 6:已中奖  7:打和 10:已撤单 11:处理失败 12:扣款失败 20:异常订单。
+		基于WE订单状态，新增状态3，表示串单情况下需多场比赛全部结算完毕才算结算完。
+		
+	子订单状态：每一个拆分订单的状态
+		//5:未中奖 6:已中奖  7:打和 11:处理失败 20:异常订单。
+		 
+	
+	下单
+	1.校验。建议参数合法性，开赛否，余额[，赔率变化否]
+	  参数不合法，已开赛直接返回给出相关提示。不下单
+	  赔率变化，下单并给出提示，展示最新赔率的订单信息
+	  //play_tag
+	  
+	2.入库，拆分订单入库。
+	  主订单入库
+	  子订单拆分入库，按每场比赛拆分订单[初始状态：待扣款]。
+	  入库异常，直接给出提示
+	  
+	3.记账变扣余额，走消息
+	  异常情况
+	  1.正常错误返回，如实际余额不足等，给出提示，修改订单状态，归为异常订单
+	  2.服务异常，做重试等补偿机制，超过最大重试次数给出告警
+	  
+	4.返回下单提示
+	
+	5.后续逻辑：监听额度扣减后的topic
+	  扣款结果：据额度扣减成功否更改订单状态为相应状态（成功：待开奖状态；其它：其它状态）
+	  扣款失败：记录日志，告警提示
+	  
+
+	下单格式：预览
+	//header 获取
+	//用户信息:memberId, member_type, member_account, member_nickname,
+	//其它信息://"clientType": "Android", //客户端类型：Android；iOS；H5；WEB 获取header的X-CHANNEL
+	//租户信息:tenantCode
+	{
+		"times": 1, //投注倍数
+		"betTotalCount": 1, //投注总注数
+		"betTotalAmount": 111.000, //订单总金额
+		"maxWinAmount": 11.000, //最高可中
+		"passType": "101,201", //过关方式。多个逗号分隔。格式：过关方式标识，参考 FootballPassTypeEnum
+		"bunchType": 5, //过关类型（1：胜平负；2：比分；3：进球数；4：半全场；5：混合过关）
+		"singlePlay": 0, //是否是单场赛事（0：否；1：是）
+		"betPoint": 1, //购彩点：1-快速购彩，目前只有1
+		"idempotent": "sdfjksfk", //随机串，做幂等校验
+		//具体投注数据，每一条数据表示一场赛事的投注信息
+		"betsData": [
+		  {
+			"competitionId": 1,  // 赛事id
+			"matchNumber": "",//赛事编号
+			"matchId": 8642, //比赛id
+			"matchTime": 1525539600,//比赛时间
+			"homeTeamId": 1,  // 主队id
+			"awayTeamId": 1,  // 客队id
+			"playId": "6032",  // 二级玩法id
+			"betContent": "1101@1.56,1102@2.56,1201@3.87,2306@2.4", //投注内容：play_tag@赔率
+			"posGall": 0 //是否为定位胆（0：否；1：是）
+		  },
+		  {
+			"competitionId": 1,  // 赛事id
+			"matchNumber": "",//赛事编号
+			"matchId": 8642, //比赛id
+			"matchTime": 1525539600,//比赛时间
+			"homeTeamId": 1,  // 主队id
+			"awayTeamId": 1,  // 客队id
+			"playId": "6032",  // 二级玩法id
+			"betContent": "1101@1.56,1102@2.56,1201@3.87,2306@2.4", //投注内容：play_tag@赔率
+			"posGall": 0 //是否为定位胆（0：否；1：是）
+		  }
+		]
+	 }
+	 
+	示例
+	{
+		"passType": "201",
+		"bunchType": 1,
+		"singlePlay": 0,
+		"idempotent": "49e52c42618d1308f4618bbb7cee8b27",
+		"betsPoint": 1,
+		"maxWinAmount": "4.79",
+		"times": 1,
+		"betAmount": 2,
+		"betCount": 1,
+		"bunch2": 1,
+		"bunch3": 0,
+		"bunch4": 0,
+		"bunch5": 0,
+		"bunch6": 0,
+		"bunch7": 0,
+		"bunch8": 0,
+		"matchCount": 2,
+		"betsData": [
+			{
+				"matchId": 3428953,
+				"posGall": 0,
+				"betContent": "1101@1.52"
+			},
+			{
+				"matchId": 3431278,
+				"posGall": 0,
+				"betContent": "1102@3.15"
+			}
+		]
+	}
+
+	订单管理
+	1.列表分页查询
+	
+	2.撤单
+	2.1 校验开奖否
+	2.2 记账变加余额，走消息
+	2.3 改订单状态为：已撤单
+	注：保证幂等性，避免多次扣款情况发生。异常处理同下单。
+	
+
+	DB
+	wos_football_order
+	
+wos-football-order questions
+com.cpt.data.core.service.impl.MemberInfoServiceImpl#fbBalanceCheckSaveStatus
+	accountFeign.getAccount
+	
+com.cpt.data.core.service.impl.FootballOrderQueryServiceImpl#queryOrderDetail
+	wosDataCenterFeign.queryFootballMatchInfo
+	
+com.cpt.data.core.service.impl.FootballBetsServiceImpl#getKushikatsuBetAmount
+
+
+结算服务
+wos-football-settlement
+	依赖
+	wos-football-order, wos-data-center, app-member
+	
+	业务
+	结算，基于MQ结算
+	重点：计算结果[串关]，结算正确，结算速度，异常处理，补偿机制，告警机制。
+	
+	根据 wos-data-center 赛果消息进行结算
+	1.正常结算
+	1.1 分批捡取一定量的未结算订单，放入队列
+	
+	1.2 消费端监听到结算队列数据后开始结算，处理幂等校验等，结算采用多线程消费结算。
+	
+	1.3 计算输赢（开奖计算工具类，针对各玩法分别写计算输赢和的工具类）
+		重点在于串关的组合和计算。
+		核心思路：先计算每场的胜负，然后再根据每场胜出的投注相互串关计算出最后的中奖
+		更新当前子订单的中奖状态
+		
+	1.4 检查该单所属的主订单是否已全部结算完毕
+		主订单已结算完毕，通知主订单正式结算。
+		
+	1.5 监听消费主订单结算通知
+		开始接受主订单
+		
+	1.6 主订单记账变加余额，走消息
+		异常情况
+		服务异常：记录日志，做重试等补偿（未结算订单重新入队）机制，超过最大重试次数给出告警
+		
+	1.7 监听账变完成消息
+		更新主订单为相关状态
+		异常情况
+		服务异常：记录日志，做重试等补偿机制，同1.4
+		//消息异常：走接口方式，未结算订单重新入队等
+		最终异常：记录日志，告警
+		
+	1.8 中奖推送相关消息发送[如有]
+	
+	//1.9 统计相关消息发送[如有]
+		
+	2.未结算定时检查补偿
+		定时如每10分钟检查一次未结算/未结算完的订单进行补偿结算处理。有已完结的赛事则走正常结算流程进行结算
+			
+	
+
+数据库设计
+db:	
+	wos_football_order
+tables:
+	football_order			足彩投注主订单			需要分表
+	football_order_record	足彩投注子订单表		需要分表
+	football_play			足球玩法表				无需分表
+	//football_dic_sys		足球购彩系统字典表		无需分表
+	//football_play_odds		足球玩法赔率表			无需分表
+	//football_play_odds_log	变赔赔率更新日志表		无需分表
+
+详见 wos_football_order.sql
+
+CREATE TABLE `football_order_0` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `tenant_code` varchar(32) NOT NULL DEFAULT '' COMMENT '租户code',
+  `member_id` bigint(20) DEFAULT '0' COMMENT '用户id',
+  `member_type` tinyint(4) DEFAULT '0' COMMENT '用户类型：1-注册游客、2-注册用户、3-充值用户、4-测试用户',
+  `member_account` varchar(50) DEFAULT '' COMMENT '用户账号',
+  `member_nickname` varchar(50) DEFAULT '' COMMENT '用户昵称',
+  `times` int(11) DEFAULT '0' COMMENT '投注倍数',
+  `bet_amount` decimal(18,3) DEFAULT '0.000' COMMENT '订单总金额',
+  `max_win_amount` decimal(18,3) DEFAULT '0.000' COMMENT '订单最大可中金额',
+  `pass_type` varchar(10) DEFAULT '0' COMMENT '过关方式。如：3*1（3串一）多个逗号分隔 。存储pass_type_tag',
+  `bunch_type` tinyint(4) DEFAULT '0' COMMENT '过关类型（1：胜平负；2：比分；3：进球数；4：半全场；5：混合过关）',
+  `status` tinyint(4) DEFAULT '0' COMMENT '订单状态（1:待扣款 2:待开奖 3:已中奖待加款 5:未中奖 6:已中奖  7:撤单待加款 10:已撤单 11:处理失败 12:扣款失败 20:异常订单）',
+  `status_remark` varchar(255) DEFAULT NULL COMMENT '状态描述，主要用于出错之后错误记录',
+  `bet_count` int(11) DEFAULT '1' COMMENT '总投注数',
+  `match_count` int(11) DEFAULT '1' COMMENT '总选择赛事场数',
+  `win_count` int(11) DEFAULT '1' COMMENT '总中奖注数',
+  `win_amount` decimal(18,3) DEFAULT '0.000' COMMENT '总中奖额度',
+  `wait_amount` decimal(18,3) DEFAULT '0.000' COMMENT '待加减款奖额度，中间状态，此时status=3|7等状态',
+  `profit_amount` decimal(18,3) DEFAULT '0.000' COMMENT '总盈利额度',
+  `bets_point` tinyint(4) DEFAULT '1' COMMENT '购彩点（1：快速购彩）',
+  `single_play` tinyint(4) DEFAULT '0' COMMENT '是否是单场赛事（0：否；1：是）',
+  `order_done` tinyint(4) DEFAULT '0' COMMENT '订单是否已完结（0：否；1：是，所有子订单已处理完）',
+  `client_type` varchar(8) DEFAULT NULL COMMENT '客户端类型：Android；iOS；H5；WEB',
+  `idempotent` varchar(128) DEFAULT '' COMMENT '下注 幂等参数',
+  `deduct_batch_number` bigint(20) DEFAULT '0' COMMENT '扣款批次号， 下注时通知用户扣款的批号编号',
+  `award_batch_number` bigint(20) DEFAULT '0' COMMENT '中奖 通知派奖批次号',
+  `cancel_batch_number` varchar(32) DEFAULT '' COMMENT '撤单批次号',
+  `bunch2` int(11) DEFAULT '0' COMMENT '2串1总注数',
+  `bunch3` int(11) DEFAULT '0' COMMENT '3串1总注数',
+  `bunch4` int(11) DEFAULT '0' COMMENT '4串1总注数',
+  `bunch5` int(11) DEFAULT '0' COMMENT '5串1总注数',
+  `bunch6` int(11) DEFAULT '0' COMMENT '6串1总注数',
+  `bunch7` int(11) DEFAULT '0' COMMENT '7串1总注数',
+  `bunch8` int(11) DEFAULT '0' COMMENT '8串1总注数',
+  `delete` tinyint(4) DEFAULT '0' COMMENT '是否删除（0：否；1：删除）',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `idx_01` (`tenant_code`,`member_id`,`status`,`delete`) USING BTREE,
+  KEY `idx_02` (`tenant_code`,`delete`) USING BTREE,
+  KEY `idx_03` (`tenant_code`,`order_done`,`delete`) USING BTREE,
+  KEY `idx_04` (`order_done`,`delete`) USING BTREE,
+  KEY `idx_05` (`delete`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=7967320704260801 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='足彩投注主订单';
+
+CREATE TABLE `football_order_record_0` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `tenant_code` varchar(32) NOT NULL DEFAULT '' COMMENT '租户code',
+  `order_id` bigint(20) DEFAULT '0' COMMENT '主订单id',
+  `competition_id` bigint(20) DEFAULT '0' COMMENT '赛事id',
+  `match_id` bigint(20) DEFAULT '0' COMMENT '比赛id',
+  `match_number` varchar(32) DEFAULT '' COMMENT '赛事编号',
+  `match_time` datetime DEFAULT NULL COMMENT '开赛时间',
+  `home_team_id` bigint(20) DEFAULT '0' COMMENT '主队id',
+  `away_team_id` bigint(20) DEFAULT '0' COMMENT '客队id',
+  `member_id` bigint(20) DEFAULT '0' COMMENT '用户id',
+  `member_type` tinyint(4) DEFAULT '0' COMMENT '用户类型：1-注册游客、2-注册用户、3-充值用户、4-测试用户',
+  `member_account` varchar(50) DEFAULT '' COMMENT '用户账号',
+  `member_nickname` varchar(50) DEFAULT '' COMMENT '用户昵称',
+  `bet_content` varchar(512) DEFAULT NULL COMMENT '单场赛事所有投注内容（格式：play_tag@赔率，多个逗号分隔）',
+  `win_content` varchar(512) DEFAULT NULL COMMENT '单场赛事所有中奖玩法（格式：play_tag@赔率，多个逗号分隔）',
+  `bet_result` varchar(256) DEFAULT '' COMMENT '赛果',
+  `bets_point` int(11) DEFAULT '1' COMMENT '购彩点（1：快速购彩）',
+  `status` tinyint(4) DEFAULT '0' COMMENT '订单状态（2:待开奖 5:未中奖 6:已中奖  10:已撤单 11:处理失败 12:扣款失败 20:异常订单）',
+  `pos_gall` tinyint(4) DEFAULT '0' COMMENT '是否为定位胆（0：否；1：是）',
+  `bunch_type` tinyint(4) DEFAULT '0' COMMENT '过关类型（1：胜平负；2：比分；3：进球数；4：半全场；5：混合过关）',
+  `single_play` tinyint(4) DEFAULT '0' COMMENT '是否是单场赛事（0：否；1：是）',
+  `client_type` varchar(8) DEFAULT NULL COMMENT '客户端类型：Android；iOS；H5；WEB',
+  `delete` tinyint(4) DEFAULT '0' COMMENT '是否删除（0：否；1：删除）',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `idx_01` (`tenant_code`,`order_id`,`status`,`delete`) USING BTREE,
+  KEY `idx_02` (`match_id`,`status`,`delete`) USING BTREE,
+  KEY `idx_03` (`tenant_code`,`match_id`,`member_id`,`status`) USING BTREE,
+  KEY `idx_04` (`tenant_code`,`status`,`delete`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=7967320704260803 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='足彩投注子订单表';
+
+
+FootballPlayEnum.java 玩法TAG枚举
+/**
+ * 胜平负
+ */
+SPFS(1101, "胜平负/胜"),
+SPFP(1102, "胜平负/平"),
+SPFF(1103, "胜平负/负"),
+
+/**
+ * 让球胜平负
+ */
+RQSPFS(1201, "让球胜平负/胜"),
+RQSPFP(1202, "让球胜平负/平"),
+RQSPFF(1203, "让球胜平负/负"),
+
+/**
+ * 胜比分
+ */
+SBF1(2101, "胜比分/1:0"),
+SBF2(2102, "胜比分/2:0"),
+SBF3(2103, "胜比分/2:1"),
+SBF4(2104, "胜比分/3:0"),
+SBF5(2105, "胜比分/3:1"),
+SBF6(2106, "胜比分/3:2"),
+SBF7(2107, "胜比分/4:0"),
+SBF8(2108, "胜比分/4:1"),
+SBF9(2109, "胜比分/4:2"),
+SBF10(2110, "胜比分/5:0"),
+SBF11(2111, "胜比分/5:1"),
+SBF12(2112, "胜比分/5:2"),
+SBF13(2113, "胜比分/其他"),
+
+/**
+ * 平比分
+ */
+PBF1(2201, "平比分/0:0"),
+PBF2(2202, "平比分/1:0"),
+PBF3(2203, "平比分/2:2"),
+PBF4(2204, "平比分/3:3"),
+PBF5(2205, "平比分/其他"),
+
+/**
+ * 负比分
+ */
+FBF1(2301, "负比分/0:1"),
+FBF2(2302, "负比分/2:2"),
+FBF3(2303, "负比分/1:2"),
+FBF4(2304, "负比分/0:3"),
+FBF5(2305, "负比分/1:3"),
+FBF6(2306, "负比分/2:3"),
+FBF7(2307, "负比分/0:4"),
+FBF8(2308, "负比分/1:4"),
+FBF9(2309, "负比分/2:4"),
+FBF10(2310, "负比分/0:5"),
+FBF11(2311, "负比分/1:5"),
+FBF12(2312, "负比分/2:5"),
+FBF13(2313, "负比分/其他"),
+
+/**
+ * 总进球
+ */
+ZJQ1(3001, "总进球/0球"),
+ZJQ2(3002, "总进球/1球"),
+ZJQ3(3003, "总进球/2球"),
+ZJQ4(3004, "总进球/3球"),
+ZJQ5(3005, "总进球/4球"),
+ZJQ6(3006, "总进球/5球"),
+ZJQ7(3007, "总进球/6球"),
+ZJQ8(3008, "总进球/6球以上"),
+
+/**
+ * 半全场
+ */
+BQCSS(4001, "半全场/胜/胜"),
+BQCSP(4002, "半全场/胜/平"),
+BQCSF(4003, "半全场/胜/负"),
+BQCPS(4004, "半全场/平/胜"),
+BQCPP(4005, "半全场/平/平"),
+BQCPF(4006, "半全场/平/负"),
+BQCFS(4007, "半全场/负/胜"),
+BQCFP(4008, "半全场/负/平"),
+BQCFF(4009, "半全场/负/负");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

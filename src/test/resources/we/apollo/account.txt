@@ -1,0 +1,232 @@
+
+#kafka
+spring.kafka.bootstrap-servers = kafka01.weuatapp.net:19092,kafka02.weuatapp.net:19092,kafka03.weuatapp.net:19092
+spring.kafka.consumer.auto-offset-reset = latest
+spring.kafka.consumer.enable-auto-commit = true
+spring.kafka.consumer.group-id = cpt-account
+spring.kafka.consumer.key-deserializer = org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.value-deserializer = org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.max-poll-records = 5
+spring.kafka.consumer.max.poll.interval.ms = 30000
+spring.kafka.consumer.auto-commit-interval = 1000
+spring.kafka.listener.type = BATCH
+spring.kafka.listener.concurrency = 8
+spring.kafka.producer.acks = all
+spring.kafka.producer.key-serializer = org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.retries = 3
+spring.kafka.producer.value-serializer = org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.compressionType = gzip
+spring.kafka.producer.batchSize = 16384
+spring.kafka.producer.properties.max.request.size = 10485760
+
+
+# spring database sharding-jdbc配置用户表
+spring.shardingsphere.dataSource.names = ds-0,ds-1,ds-2,ds-3,ds-4,ds-5,ds-6,ds-7
+spring.shardingsphere.dataSource.ds-0.connectionTimeout = 30000
+spring.shardingsphere.dataSource.ds-0.driverClassName = com.mysql.jdbc.Driver
+spring.shardingsphere.dataSource.ds-0.idleTimeout = 600000
+spring.shardingsphere.dataSource.ds-0.jdbcUrl = jdbc:mysql://192.168.10.111:3307/we_account_0?autoReconnect=true&useSSL=false
+spring.shardingsphere.dataSource.ds-0.username = weuat
+spring.shardingsphere.dataSource.ds-0.password = Sds!1f8S1MF&
+spring.shardingsphere.dataSource.ds-0.maxLifetime = 1800000
+spring.shardingsphere.dataSource.ds-0.corePoolSize = 10
+spring.shardingsphere.dataSource.ds-0.maximumPoolSize = 30
+spring.shardingsphere.dataSource.ds-0.transactionIsolation = TRANSACTION_READ_COMMITTED
+spring.shardingsphere.dataSource.ds-0.type = com.zaxxer.hikari.HikariDataSource
+# ds-1
+spring.shardingsphere.dataSource.ds-1.connectionTimeout = 30000
+spring.shardingsphere.dataSource.ds-1.driverClassName = com.mysql.jdbc.Driver
+spring.shardingsphere.dataSource.ds-1.idleTimeout = 600000
+spring.shardingsphere.dataSource.ds-1.jdbcUrl = jdbc:mysql://192.168.10.111:3307/we_account_1?autoReconnect=true&useSSL=false
+spring.shardingsphere.dataSource.ds-1.username = weuat
+spring.shardingsphere.dataSource.ds-1.password = Sds!1f8S1MF&
+spring.shardingsphere.dataSource.ds-1.maxLifetime = 1800000
+spring.shardingsphere.dataSource.ds-1.corePoolSize = 10
+spring.shardingsphere.dataSource.ds-1.maximumPoolSize = 30
+spring.shardingsphere.dataSource.ds-1.transactionIsolation = TRANSACTION_READ_COMMITTED
+spring.shardingsphere.dataSource.ds-1.type = com.zaxxer.hikari.HikariDataSource
+# ds-2
+spring.shardingsphere.dataSource.ds-2.connectionTimeout = 30000
+spring.shardingsphere.dataSource.ds-2.driverClassName = com.mysql.jdbc.Driver
+spring.shardingsphere.dataSource.ds-2.idleTimeout = 600000
+spring.shardingsphere.dataSource.ds-2.jdbcUrl = jdbc:mysql://192.168.10.111:3307/we_account_2?autoReconnect=true&useSSL=false
+spring.shardingsphere.dataSource.ds-2.username = weuat
+spring.shardingsphere.dataSource.ds-2.password = Sds!1f8S1MF&
+spring.shardingsphere.dataSource.ds-2.maxLifetime = 1800000
+spring.shardingsphere.dataSource.ds-2.corePoolSize = 10
+spring.shardingsphere.dataSource.ds-2.maximumPoolSize = 30
+spring.shardingsphere.dataSource.ds-2.transactionIsolation = TRANSACTION_READ_COMMITTED
+spring.shardingsphere.dataSource.ds-2.type = com.zaxxer.hikari.HikariDataSource
+# ds-3
+spring.shardingsphere.dataSource.ds-3.connectionTimeout = 30000
+spring.shardingsphere.dataSource.ds-3.driverClassName = com.mysql.jdbc.Driver
+spring.shardingsphere.dataSource.ds-3.idleTimeout = 600000
+spring.shardingsphere.dataSource.ds-3.jdbcUrl = jdbc:mysql://192.168.10.111:3307/we_account_3?autoReconnect=true&useSSL=false
+spring.shardingsphere.dataSource.ds-3.username = weuat
+spring.shardingsphere.dataSource.ds-3.password = Sds!1f8S1MF&
+spring.shardingsphere.dataSource.ds-3.maxLifetime = 1800000
+spring.shardingsphere.dataSource.ds-3.corePoolSize = 10
+spring.shardingsphere.dataSource.ds-3.maximumPoolSize = 30
+spring.shardingsphere.dataSource.ds-3.transactionIsolation = TRANSACTION_READ_COMMITTED
+spring.shardingsphere.dataSource.ds-3.type = com.zaxxer.hikari.HikariDataSource
+# ds-4
+spring.shardingsphere.dataSource.ds-4.connectionTimeout = 30000
+spring.shardingsphere.dataSource.ds-4.driverClassName = com.mysql.jdbc.Driver
+spring.shardingsphere.dataSource.ds-4.idleTimeout = 600000
+spring.shardingsphere.dataSource.ds-4.jdbcUrl = jdbc:mysql://192.168.10.111:3308/we_account_0?autoReconnect=true&useSSL=false
+spring.shardingsphere.dataSource.ds-4.username = weuat
+spring.shardingsphere.dataSource.ds-4.password = Sds!1f8S1MF&
+spring.shardingsphere.dataSource.ds-4.maxLifetime = 1800000
+spring.shardingsphere.dataSource.ds-4.corePoolSize = 10
+spring.shardingsphere.dataSource.ds-4.maximumPoolSize = 30
+spring.shardingsphere.dataSource.ds-4.transactionIsolation = TRANSACTION_READ_COMMITTED
+spring.shardingsphere.dataSource.ds-4.type = com.zaxxer.hikari.HikariDataSource
+# ds-5
+spring.shardingsphere.dataSource.ds-5.connectionTimeout = 30000
+spring.shardingsphere.dataSource.ds-5.driverClassName = com.mysql.jdbc.Driver
+spring.shardingsphere.dataSource.ds-5.idleTimeout = 600000
+spring.shardingsphere.dataSource.ds-5.jdbcUrl = jdbc:mysql://192.168.10.111:3308/we_account_1?autoReconnect=true&useSSL=false
+spring.shardingsphere.dataSource.ds-5.username = weuat
+spring.shardingsphere.dataSource.ds-5.password = Sds!1f8S1MF&
+spring.shardingsphere.dataSource.ds-5.maxLifetime = 1800000
+spring.shardingsphere.dataSource.ds-5.corePoolSize = 10
+spring.shardingsphere.dataSource.ds-5.maximumPoolSize = 30
+spring.shardingsphere.dataSource.ds-5.transactionIsolation = TRANSACTION_READ_COMMITTED
+spring.shardingsphere.dataSource.ds-5.type = com.zaxxer.hikari.HikariDataSource
+# ds-6
+spring.shardingsphere.dataSource.ds-6.connectionTimeout = 30000
+spring.shardingsphere.dataSource.ds-6.driverClassName = com.mysql.jdbc.Driver
+spring.shardingsphere.dataSource.ds-6.idleTimeout = 600000
+spring.shardingsphere.dataSource.ds-6.jdbcUrl = jdbc:mysql://192.168.10.111:3308/we_account_2?autoReconnect=true&useSSL=false
+spring.shardingsphere.dataSource.ds-6.username = weuat
+spring.shardingsphere.dataSource.ds-6.password = Sds!1f8S1MF&
+spring.shardingsphere.dataSource.ds-6.maxLifetime = 1800000
+spring.shardingsphere.dataSource.ds-6.corePoolSize = 10
+spring.shardingsphere.dataSource.ds-6.maximumPoolSize = 30
+spring.shardingsphere.dataSource.ds-6.transactionIsolation = TRANSACTION_READ_COMMITTED
+spring.shardingsphere.dataSource.ds-6.type = com.zaxxer.hikari.HikariDataSource
+# ds-7
+spring.shardingsphere.dataSource.ds-7.connectionTimeout = 30000
+spring.shardingsphere.dataSource.ds-7.driverClassName = com.mysql.jdbc.Driver
+spring.shardingsphere.dataSource.ds-7.idleTimeout = 600000
+spring.shardingsphere.dataSource.ds-7.jdbcUrl = jdbc:mysql://192.168.10.111:3308/we_account_3?autoReconnect=true&useSSL=false
+spring.shardingsphere.dataSource.ds-7.username = weuat
+spring.shardingsphere.dataSource.ds-7.password = Sds!1f8S1MF&
+spring.shardingsphere.dataSource.ds-7.maxLifetime = 1800000
+spring.shardingsphere.dataSource.ds-7.corePoolSize = 10
+spring.shardingsphere.dataSource.ds-7.maximumPoolSize = 30
+spring.shardingsphere.dataSource.ds-7.transactionIsolation = TRANSACTION_READ_COMMITTED
+spring.shardingsphere.dataSource.ds-7.type = com.zaxxer.hikari.HikariDataSource
+# sharding
+spring.shardingsphere.sharding.default-data-source-name = ds-0
+#account分表
+spring.shardingsphere.sharding.tables.account.actual-data-nodes = ds-${0..7}.account_${0..7}
+spring.shardingsphere.sharding.tables.account.databaseStrategy.standard.preciseAlgorithmClassName = com.cpt.account.common.dal.config.DatasourceHashPreciseShardingAlgorithm
+spring.shardingsphere.sharding.tables.account.databaseStrategy.standard.shardingColumn = tenant_code
+spring.shardingsphere.sharding.tables.account.tableStrategy.standard.preciseAlgorithmClassName = com.cpt.account.common.dal.config.TableHashPreciseShardingAlgorithm
+spring.shardingsphere.sharding.tables.account.tableStrategy.standard.shardingColumn = tenant_code
+#account_change分表
+spring.shardingsphere.sharding.tables.account_change.actual-data-nodes = ds-${0..7}.account_change_${0..7}
+spring.shardingsphere.sharding.tables.account_change.databaseStrategy.standard.preciseAlgorithmClassName = com.cpt.account.common.dal.config.DatasourceHashPreciseShardingAlgorithm
+spring.shardingsphere.sharding.tables.account_change.databaseStrategy.standard.shardingColumn = tenant_code
+spring.shardingsphere.sharding.tables.account_change.tableStrategy.standard.preciseAlgorithmClassName = com.cpt.account.common.dal.config.TableHashPreciseShardingAlgorithm
+spring.shardingsphere.sharding.tables.account_change.tableStrategy.standard.shardingColumn = tenant_code
+#新增account_daily分表
+spring.shardingsphere.sharding.tables.account_daily.actual-data-nodes = ds-${0..7}.account_daily_${0..7}
+spring.shardingsphere.sharding.tables.account_daily.databaseStrategy.standard.preciseAlgorithmClassName = com.cpt.account.common.dal.config.DatasourceHashPreciseShardingAlgorithm
+spring.shardingsphere.sharding.tables.account_daily.databaseStrategy.standard.shardingColumn = tenant_code
+spring.shardingsphere.sharding.tables.account_daily.tableStrategy.standard.preciseAlgorithmClassName = com.cpt.account.common.dal.config.TableHashPreciseShardingAlgorithm
+spring.shardingsphere.sharding.tables.account_daily.tableStrategy.standard.shardingColumn = tenant_code
+#新增account_change_record分表
+spring.shardingsphere.sharding.tables.account_change_record.actual-data-nodes = ds-${0..7}.account_change_record_${0..7}
+spring.shardingsphere.sharding.tables.account_change_record.databaseStrategy.standard.preciseAlgorithmClassName = com.cpt.account.common.dal.config.DatasourceHashPreciseShardingAlgorithm
+spring.shardingsphere.sharding.tables.account_change_record.databaseStrategy.standard.shardingColumn = tenant_code
+spring.shardingsphere.sharding.tables.account_change_record.tableStrategy.standard.preciseAlgorithmClassName = com.cpt.account.common.dal.config.TableHashPreciseShardingAlgorithm
+spring.shardingsphere.sharding.tables.account_change_record.tableStrategy.standard.shardingColumn = tenant_code
+#新增account_thirdgame_record分表
+spring.shardingsphere.sharding.tables.account_thirdgame_record.actual-data-nodes = ds-${0..7}.account_thirdgame_record_${0..7}
+spring.shardingsphere.sharding.tables.account_thirdgame_record.databaseStrategy.standard.preciseAlgorithmClassName = com.cpt.account.common.dal.config.DatasourceHashPreciseShardingAlgorithm
+spring.shardingsphere.sharding.tables.account_thirdgame_record.databaseStrategy.standard.shardingColumn = tenant_code
+spring.shardingsphere.sharding.tables.account_thirdgame_record.tableStrategy.standard.preciseAlgorithmClassName = com.cpt.account.common.dal.config.TableHashPreciseShardingAlgorithm
+spring.shardingsphere.sharding.tables.account_thirdgame_record.tableStrategy.standard.shardingColumn = tenant_code
+#新增account_rebate_record分表
+spring.shardingsphere.sharding.tables.account_rebate_record.actual-data-nodes = ds-${0..7}.account_rebate_record_${0..3}
+spring.shardingsphere.sharding.tables.account_rebate_record.databaseStrategy.standard.preciseAlgorithmClassName = com.cpt.account.common.dal.config.DatasourceHashPreciseShardingAlgorithm
+spring.shardingsphere.sharding.tables.account_rebate_record.databaseStrategy.standard.shardingColumn = tenant_code
+spring.shardingsphere.sharding.tables.account_rebate_record.tableStrategy.standard.preciseAlgorithmClassName = com.cpt.account.common.dal.config.TableHashPreciseShardingAlgorithm
+spring.shardingsphere.sharding.tables.account_rebate_record.tableStrategy.standard.shardingColumn = tenant_code
+
+spring.shardingsphere.props.sql.show = false
+
+# redis
+spring.redis.cluster.nodes[0] = redis-cluster-01.weuatapp.net:6379
+spring.redis.cluster.nodes[1] = redis-cluster-02.weuatapp.net:6379
+spring.redis.cluster.nodes[2] = redis-cluster-03.weuatapp.net:6379
+spring.redis.cluster.nodes[3] = redis-cluster-04.weuatapp.net:6379
+spring.redis.cluster.nodes[4] = redis-cluster-05.weuatapp.net:6379
+spring.redis.cluster.nodes[5] = redis-cluster-06.weuatapp.net:6379
+spring.redis.cluster.max-redirects = 5
+#spring.redis.password =
+spring.redis.timeout = 10000ms
+spring.redis.lettuce.pool.max-active = 50
+spring.redis.lettuce.pool.max-idle = 10
+spring.redis.lettuce.pool.min-idle = 5
+
+# 监控
+management.endpoints.jmx.exposure.include = info, health, prometheus, eureka
+management.endpoints.web.exposure.include = info, health, prometheus, eureka
+management.health.defaults.enabled = false
+
+hystrix.threadpool.default.coreSize = 20
+hystrix.threadpool.default.maximumSize = 20
+hystrix.threadpool.default.maxQueueSize = 1000
+hystrix.threadpool.default.queueSizeRejectionThreshold = 200
+hystrix.threadpool.default.allowMaximumSizeToDivergeFromCoreSize = true
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds = 3000
+hystrix.command.default.circuitBreaker.errorThresholdPercentage = 50
+hystrix.command.default.circuitBreaker.requestVolumeThreshold = 5
+hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds = 3000
+feign.hystrix.enabled = true
+feign.okhttp.enabled = true
+ribbon.IsSecure = false
+ribbon.ReadTimeout = 2000
+ribbon.ConnectTimeout = 2000
+ribbon.eager-load.enabled = true
+# pagehelper
+pagehelper.default-count = false
+opentracing.jaeger.log-spans = false
+
+#eureka
+eureka.instance.prefer-ip-address = true
+eureka.client.serviceUrl.defaultZone = http://eureka.weuatapp.net:8080/eureka/
+eureka.client.registry-fetch-interval-seconds = 10
+# 续约更新时间间隔（默认30秒）
+eureka.instance.lease-renewal-interval-in-seconds = 3
+# 续约到期时间（默认90秒）
+eureka.instance.lease-expiration-duration-in-seconds = 0
+eureka.instance.ip-address = ${dockerip}
+eureka.instance.instance-id = ${dockerip}:10003
+
+#线程池
+thread.pool.corePoolSize = 2
+thread.pool.maxPoolSize = 100
+thread.pool.queueCapacity = 1000
+#处理cache线程池，需要延迟，需设置大一点
+thread.pool.cacheCorePoolSize = 20
+thread.pool.cacheMaxPoolSize = 200
+
+cpt.job.zookeeper = kafka01.weuatapp.net:12181,kafka02.weuatapp.net:12181,kafka03.weuatapp.net:12181
+cpt.job.baseSleepTimeMilliseconds = 2000
+cpt.job.maxRetries = 3
+cpt.job.maxSleepTimeMilliseconds = 3000
+cpt.job.namespace = CPT_ACCOUNT
+cpt.job.rebateTaskCron = 0 0 3-6 * * ? *
+
+#xxl-job
+xxl.job.accessToken = 
+xxl.job.admin.addresses = http://xxl-job.weuatapp.net:11000/xxl-job-admin/
+xxl.job.executor.appname = cpt-account
+xxl.job.executor.ip = 
+xxl.job.executor.port = 9790
+xxl.job.executor.logpath = /data/applogs/xxl-job/jobhandler
+xxl.job.executor.logretentiondays = 30

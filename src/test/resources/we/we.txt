@@ -1,0 +1,59 @@
+
+
+header 参数
+	lang: zh_CN(中文)|en_US(英文)
+
+prod
+https://h5.wegw.net/XGCP
+
+we模板工程
+mvn archetype:generate -DarchetypeGroupId=com.cpt -DarchetypeArtifactId=demo-archetype -DarchetypeVersion=0.0.1-SNAPSHOT -DgroupId=com.cpt -DartifactId=wos-data-center -Dpackage=com.cpt.data  -Dversion=1.0.0-SNAPSHOT -DarchetypeCatalog=internal
+
+mvn archetype:generate -DarchetypeGroupId=com.cpt -DarchetypeArtifactId=demo-archetype -DarchetypeVersion=0.0.1-SNAPSHOT -DgroupId=com.cpt -DartifactId=wos-football-order -Dpackage=com.cpt.data  -Dversion=1.0.0-SNAPSHOT -DarchetypeCatalog=internal
+
+mvn archetype:generate -DarchetypeGroupId=com.cpt -DarchetypeArtifactId=demo-archetype -DarchetypeVersion=0.0.1-SNAPSHOT -DgroupId=com.cpt -DartifactId=wos-football-settlement -Dpackage=com.cpt.data  -Dversion=1.0.0-SNAPSHOT -DarchetypeCatalog=internal
+
+
+纳米api
+1.http://docs.open.sportnanoapi.com/
+demo/123123
+
+2.https://www.nami.com/docs/football
+cpt@wtalking.com  VadU=3JP*
+user:cpt
+secret:3ff6c347dd32ecb6a9c2034097e7f334
+
+
+WE推送对接
+amqp = "amqp://imuat:imuat123@13.229.133.114:5672"
+exchangeName = "impushexchange"
+——
+http://confluence.oacpt.com:8090/pages/viewpage.action?pageId=14877303
+要对接推送的，体育资讯体育购彩用新的推送实现。
+
+直播原型
+App地址: https://org.modao.cc/app/153a0314ea1cbdcd35594e2df091e0a5e5eefb9f?simulator_type=outside_artboard&sticky
+后台地址：https://org.modao.cc/app/cea31b24f0ddd44d1714ca53b6858795f1163011?simulator_type=outside_artboard&sticky
+主播端地址：https://org.modao.cc/app/9df80efed51daf27464265d5370df0154e8c7c4e?simulator_type=outside_artboard&sticky
+
+
+com.cpt.payment.core.service.monitor.ZkMonitor
+
+com.cpt.member.config.ZookeeperConfig
+com.cpt.member.core.service.consumer.ZkNodeListener
+
+昨日工作：
+         1、XXX任务，完成进度：，计划完成时间：
+今日计划：
+
+困难或阻碍：
+
+
+周报的模板：
+
+本周开发内容：
+       1、XXX功能，完成进度：，计划完成时间：
+下周计划：
+    
+遇到的困难：
+

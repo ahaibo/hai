@@ -1,0 +1,67 @@
+
+数据库规范
+数据库这块我们现在主要几个要注意：
+00.数据库默认编码：utf8mb4, 默认字符排序utf8mb4_bin; 一些需要大小写不敏感的需在其字段显示指定其字符排序为：utf8mb4_general_ci;
+
+01、要注意加合适的索引；
+
+02、数据库字段大小够用就行，不要什么都设置那么大；
+
+03、线上C端业务处理禁用join操作，禁止没有索引的全表扫描操作；
+
+04、所有表必须带上以下三个字段(如果是所有租户共用的表，则不需要租户编码)
+  tenant_code varchar(32) NOT NULL COMMENT '租户编码',
+  create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  update_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间',
+
+05、对于一些通用类型，长度命名都统一：
+  金额   decimal(18,3) DEFAULT '0.000',
+  account_id bigint(20) NOT NULL COMMENT '账号ID',
+  member_id bigint(20) NOT NULL COMMENT '用户ID',
+  member_name varchar(50) NOT NULL COMMENT '会员账号',
+  nickname varchar(50) NOT NULL COMMENT '会员昵称'
+  
+  
+06.字段全部以下划线连接，不能多个单词全部小写拼接在一起，如以前的类似字段sysparamcode，sysparamname等
+
+07.字段可简写的就简写，但简写必须说明含义
+
+08.字段必须加默认值，除非其不能存在默认值，如红包活动的开始时间等
+
+09.状态值统一用tinyint(4)表示，并且所有启停状态0：停用/禁止/未开始等；1：启用/允许/开始等。启停type型数据较小的都用tinyint(4)
+
+10.建表，建字段含义相近的尽量字段也保持统一前后缀。
+   如：启停周期（period_date_start：周期性开始日期；period_date_end：周期性结束日期；period_time_start：具体开始时间；period_time_end：具体结束时间；）
+
+11.所有表必须包含至少以tenant_code在内的索引
+
+12.表字段一下基本信息能冗余的必须冗余，如name,nickname等。就是一个表的id对应有名称等场景要管理操作，显示的字段都进行冗余
+
+13.数据库delete字段有无和产品确认是否需要逻辑删除，否则直接物理删除。且删除和重要更新时必须写操作记录
+
+接口定义
+01.前后端api接口参数全部以 json 格式接收
+
+02.参数必须做相关合法性校验
+
+编码规范
+01.熟悉we基础模块的功能，工具类，多使用已有的工具类
+
+02.命名：
+a.所有字段，变量，方法名，参数全部以小驼峰命名，不允许类似命名 sysparamcode，sysparamname 出现。字段可简写的就简写，但简写必须说明含义。
+a.所有类，接口，文件名全部以大驼峰命名。字段可简写的就简写，但简写必须说明含义。
+
+03.日志。
+a.程序业务日志打印规范：
+ log.info("{}[:{}] 方法名 日志消息... [{}]", tenantCode, [用户id/如果有], [参数信息/如果有], [e(错误堆栈)如果有])。方便排查哪个租户的哪个用户的哪个方法的问题
+
+04.开发时就按国际化方式开发，所有文字提示必须按i18资源的方式放置，获取
+
+05.公共类管理，统一放到一端，避免冗余，其它端依赖使用
+
+06.分表主键id字段全部未bigint且手动设置，不自增处理；不分表字段类型bigint，自增。
+
+07.缓存key建议统一命名格式：%{tenant_code}:%s:%s... 如租户CSZH的礼物列表 CSZH:GIFT:LIST。方便统一管理。如：清除某一租户|某一场景的所有缓存。
+
+08.TOPIC统一在cpt-base维护
+

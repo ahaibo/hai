@@ -1,0 +1,290 @@
+#biz props
+thread.pool.corePoolSize = 8
+thread.pool.maxPoolSize = 20
+thread.pool.queueCapacity = 1000
+
+#补偿时间间隔：默认125分钟/7500秒
+settlement.compensate.interval = 7500
+#失败重试次数
+failed.retry.max = 3
+#数据加载超时，分钟
+settlement.compensate.timeout = 5
+#结算计算结果获取超时时间，分钟
+settlement.bunchcompute.timeout = 10
+#数据加载条数
+settlement.order.load.size = 1000
+#比赛开奖超时时间[从比赛开始时间记]，分钟
+settlement.match.drawing.timeout = 150
+#比赛结算超时时间[从比赛开始时间记]，分钟
+settlement.match.settle.timeout = 160
+#投注单价
+football.bet.unitamount = 1
+
+#im 推送配置
+im.push.enable = true
+im.push.exchange.name = impushexchange
+im.push.cmd.type = pushmessage
+im.push.fbwin.channel = NOTICE_FOOTBALL_WIN
+im.push.fbwin.tpl = 恭喜!!!您的竞彩足球中奖啦! 中奖金额:%s元
+
+#ds props
+ds0.host = weuat02-database.theclzb.net:3309
+ds1.host = weuat02-database.theclzb.net:3309
+ds2.host = weuat02-database.theclzb.net:3309
+ds3.host = weuat02-database.theclzb.net:3309
+ds4.host = weuat02-database.theclzb.net:3309
+ds5.host = weuat02-database.theclzb.net:3309
+ds6.host = weuat02-database.theclzb.net:3309
+ds7.host = weuat02-database.theclzb.net:3309
+ds.connectionTimeout = 60000
+ds.driverClassName = com.mysql.jdbc.Driver
+ds.idleTimeout = 600000
+#ds.username = root
+#ds.password = root
+#ds.host = 192.168.10.111:3309
+ds.username = weuat
+ds.password = Sds!1f8S1MF&
+ds.maxLifetime = 1800000
+ds.corePoolSize = 5
+ds.maximumPoolSize = 20
+ds.transactionIsolation = TRANSACTION_READ_COMMITTED
+ds.type = com.zaxxer.hikari.HikariDataSource
+ds.jdbcUrl_0 = jdbc:mysql://${ds0.host}/wos_football_order_0?autoReconnect=true&useSSL=false
+ds.jdbcUrl_1 = jdbc:mysql://${ds1.host}/wos_football_order_1?autoReconnect=true&useSSL=false
+ds.jdbcUrl_2 = jdbc:mysql://${ds2.host}/wos_football_order_2?autoReconnect=true&useSSL=false
+ds.jdbcUrl_3 = jdbc:mysql://${ds3.host}/wos_football_order_3?autoReconnect=true&useSSL=false
+ds.jdbcUrl_4 = jdbc:mysql://${ds4.host}/wos_football_order_4?autoReconnect=true&useSSL=false
+ds.jdbcUrl_5 = jdbc:mysql://${ds5.host}/wos_football_order_5?autoReconnect=true&useSSL=false
+ds.jdbcUrl_6 = jdbc:mysql://${ds6.host}/wos_football_order_6?autoReconnect=true&useSSL=false
+ds.jdbcUrl_7 = jdbc:mysql://${ds7.host}/wos_football_order_7?autoReconnect=true&useSSL=false
+
+# spring database sharding-jdbc配置足球订单表
+spring.shardingsphere.dataSource.names = ds-0,ds-1,ds-2,ds-3,ds-4,ds-5,ds-6,ds-7
+spring.shardingsphere.dataSource.ds-0.connectionTimeout = ${ds.connectionTimeout}
+spring.shardingsphere.dataSource.ds-0.driverClassName = ${ds.driverClassName}
+spring.shardingsphere.dataSource.ds-0.idleTimeout = ${ds.idleTimeout}
+spring.shardingsphere.dataSource.ds-0.jdbcUrl = ${ds.jdbcUrl_0}
+spring.shardingsphere.dataSource.ds-0.username = ${ds.username}
+spring.shardingsphere.dataSource.ds-0.password = ${ds.password}
+spring.shardingsphere.dataSource.ds-0.maxLifetime = ${ds.maxLifetime}
+spring.shardingsphere.dataSource.ds-0.corePoolSize = ${ds.corePoolSize}
+spring.shardingsphere.dataSource.ds-0.maximumPoolSize = ${ds.maximumPoolSize}
+spring.shardingsphere.dataSource.ds-0.transactionIsolation = ${ds.transactionIsolation}
+spring.shardingsphere.dataSource.ds-0.type = ${ds.type}
+# ds-1
+spring.shardingsphere.dataSource.ds-1.connectionTimeout = ${ds.connectionTimeout}
+spring.shardingsphere.dataSource.ds-1.driverClassName = ${ds.driverClassName}
+spring.shardingsphere.dataSource.ds-1.idleTimeout = ${ds.idleTimeout}
+spring.shardingsphere.dataSource.ds-1.jdbcUrl = ${ds.jdbcUrl_1}
+spring.shardingsphere.dataSource.ds-1.username = ${ds.username}
+spring.shardingsphere.dataSource.ds-1.password = ${ds.password}
+spring.shardingsphere.dataSource.ds-1.maxLifetime = ${ds.maxLifetime}
+spring.shardingsphere.dataSource.ds-1.corePoolSize = ${ds.corePoolSize}
+spring.shardingsphere.dataSource.ds-1.maximumPoolSize = ${ds.maximumPoolSize}
+spring.shardingsphere.dataSource.ds-1.transactionIsolation = ${ds.transactionIsolation}
+spring.shardingsphere.dataSource.ds-1.type = ${ds.type}
+# ds-2
+spring.shardingsphere.dataSource.ds-2.connectionTimeout = ${ds.connectionTimeout}
+spring.shardingsphere.dataSource.ds-2.driverClassName = ${ds.driverClassName}
+spring.shardingsphere.dataSource.ds-2.idleTimeout = ${ds.idleTimeout}
+spring.shardingsphere.dataSource.ds-2.jdbcUrl = ${ds.jdbcUrl_2}
+spring.shardingsphere.dataSource.ds-2.username = ${ds.username}
+spring.shardingsphere.dataSource.ds-2.password = ${ds.password}
+spring.shardingsphere.dataSource.ds-2.maxLifetime = ${ds.maxLifetime}
+spring.shardingsphere.dataSource.ds-2.corePoolSize = ${ds.corePoolSize}
+spring.shardingsphere.dataSource.ds-2.maximumPoolSize = ${ds.maximumPoolSize}
+spring.shardingsphere.dataSource.ds-2.transactionIsolation = ${ds.transactionIsolation}
+spring.shardingsphere.dataSource.ds-2.type = ${ds.type}
+# ds-3
+spring.shardingsphere.dataSource.ds-3.connectionTimeout = ${ds.connectionTimeout}
+spring.shardingsphere.dataSource.ds-3.driverClassName = ${ds.driverClassName}
+spring.shardingsphere.dataSource.ds-3.idleTimeout = ${ds.idleTimeout}
+spring.shardingsphere.dataSource.ds-3.jdbcUrl = ${ds.jdbcUrl_3}
+spring.shardingsphere.dataSource.ds-3.username = ${ds.username}
+spring.shardingsphere.dataSource.ds-3.password = ${ds.password}
+spring.shardingsphere.dataSource.ds-3.maxLifetime = ${ds.maxLifetime}
+spring.shardingsphere.dataSource.ds-3.corePoolSize = ${ds.corePoolSize}
+spring.shardingsphere.dataSource.ds-3.maximumPoolSize = ${ds.maximumPoolSize}
+spring.shardingsphere.dataSource.ds-3.transactionIsolation = ${ds.transactionIsolation}
+spring.shardingsphere.dataSource.ds-3.type = ${ds.type}
+# ds-4
+spring.shardingsphere.dataSource.ds-4.connectionTimeout = ${ds.connectionTimeout}
+spring.shardingsphere.dataSource.ds-4.driverClassName = ${ds.driverClassName}
+spring.shardingsphere.dataSource.ds-4.idleTimeout = ${ds.idleTimeout}
+spring.shardingsphere.dataSource.ds-4.jdbcUrl = ${ds.jdbcUrl_4}
+spring.shardingsphere.dataSource.ds-4.username = ${ds.username}
+spring.shardingsphere.dataSource.ds-4.password = ${ds.password}
+spring.shardingsphere.dataSource.ds-4.maxLifetime = ${ds.maxLifetime}
+spring.shardingsphere.dataSource.ds-4.corePoolSize = ${ds.corePoolSize}
+spring.shardingsphere.dataSource.ds-4.maximumPoolSize = ${ds.maximumPoolSize}
+spring.shardingsphere.dataSource.ds-4.transactionIsolation = ${ds.transactionIsolation}
+spring.shardingsphere.dataSource.ds-4.type = ${ds.type}
+# ds-5
+spring.shardingsphere.dataSource.ds-5.connectionTimeout = ${ds.connectionTimeout}
+spring.shardingsphere.dataSource.ds-5.driverClassName = ${ds.driverClassName}
+spring.shardingsphere.dataSource.ds-5.idleTimeout = ${ds.idleTimeout}
+spring.shardingsphere.dataSource.ds-5.jdbcUrl = ${ds.jdbcUrl_5}
+spring.shardingsphere.dataSource.ds-5.username = ${ds.username}
+spring.shardingsphere.dataSource.ds-5.password = ${ds.password}
+spring.shardingsphere.dataSource.ds-5.maxLifetime = ${ds.maxLifetime}
+spring.shardingsphere.dataSource.ds-5.corePoolSize = ${ds.corePoolSize}
+spring.shardingsphere.dataSource.ds-5.maximumPoolSize = ${ds.maximumPoolSize}
+spring.shardingsphere.dataSource.ds-5.transactionIsolation = ${ds.transactionIsolation}
+spring.shardingsphere.dataSource.ds-5.type = ${ds.type}
+# ds-6
+spring.shardingsphere.dataSource.ds-6.connectionTimeout = ${ds.connectionTimeout}
+spring.shardingsphere.dataSource.ds-6.driverClassName = ${ds.driverClassName}
+spring.shardingsphere.dataSource.ds-6.idleTimeout = ${ds.idleTimeout}
+spring.shardingsphere.dataSource.ds-6.jdbcUrl = ${ds.jdbcUrl_6}
+spring.shardingsphere.dataSource.ds-6.username = ${ds.username}
+spring.shardingsphere.dataSource.ds-6.password = ${ds.password}
+spring.shardingsphere.dataSource.ds-6.maxLifetime = ${ds.maxLifetime}
+spring.shardingsphere.dataSource.ds-6.corePoolSize = ${ds.corePoolSize}
+spring.shardingsphere.dataSource.ds-6.maximumPoolSize = ${ds.maximumPoolSize}
+spring.shardingsphere.dataSource.ds-6.transactionIsolation = ${ds.transactionIsolation}
+spring.shardingsphere.dataSource.ds-6.type = ${ds.type}
+# ds-7
+spring.shardingsphere.dataSource.ds-7.connectionTimeout = ${ds.connectionTimeout}
+spring.shardingsphere.dataSource.ds-7.driverClassName = ${ds.driverClassName}
+spring.shardingsphere.dataSource.ds-7.idleTimeout = ${ds.idleTimeout}
+spring.shardingsphere.dataSource.ds-7.jdbcUrl = ${ds.jdbcUrl_7}
+spring.shardingsphere.dataSource.ds-7.username = ${ds.username}
+spring.shardingsphere.dataSource.ds-7.password = ${ds.password}
+spring.shardingsphere.dataSource.ds-7.maxLifetime = ${ds.maxLifetime}
+spring.shardingsphere.dataSource.ds-7.corePoolSize = ${ds.corePoolSize}
+spring.shardingsphere.dataSource.ds-7.maximumPoolSize = ${ds.maximumPoolSize}
+spring.shardingsphere.dataSource.ds-7.transactionIsolation = ${ds.transactionIsolation}
+spring.shardingsphere.dataSource.ds-7.type = ${ds.type}
+
+
+# sharding
+spring.shardingsphere.sharding.default-data-source-name = ds-0
+#football_order
+spring.shardingsphere.sharding.tables.football_order.actual-data-nodes = ds-${0..7}.football_order_${0..7}
+spring.shardingsphere.sharding.tables.football_order.databaseStrategy.complex.algorithmClassName = com.cpt.data.common.dal.config.DatasourceComplexShardingAlgorithm
+spring.shardingsphere.sharding.tables.football_order.databaseStrategy.complex.shardingColumns = tenant_code,member_id
+spring.shardingsphere.sharding.tables.football_order.tableStrategy.complex.algorithmClassName = com.cpt.data.common.dal.config.TableComplexShardingAlgorithm
+spring.shardingsphere.sharding.tables.football_order.tableStrategy.complex.shardingColumns = tenant_code,member_id
+
+#football_order_record
+spring.shardingsphere.sharding.tables.football_order_record.actual-data-nodes = ds-${0..7}.football_order_record_${0..7}
+spring.shardingsphere.sharding.tables.football_order_record.databaseStrategy.complex.algorithmClassName = com.cpt.data.common.dal.config.DatasourceComplexShardingAlgorithm
+spring.shardingsphere.sharding.tables.football_order_record.databaseStrategy.complex.shardingColumns = tenant_code,member_id
+spring.shardingsphere.sharding.tables.football_order_record.tableStrategy.complex.algorithmClassName = com.cpt.data.common.dal.config.TableComplexShardingAlgorithm
+spring.shardingsphere.sharding.tables.football_order_record.tableStrategy.complex.shardingColumns = tenant_code,member_id
+
+#football_order hint strategy
+spring.shardingsphere.sharding.tables.football_order_hint.actual-data-nodes = ds-${0..7}.football_order_${0..7}
+spring.shardingsphere.sharding.tables.football_order_hint.databaseStrategy.hint.algorithmClassName = com.cpt.data.common.dal.config.DatasourceHintShardingAlgorithm
+spring.shardingsphere.sharding.tables.football_order_hint.tableStrategy.hint.algorithmClassName = com.cpt.data.common.dal.config.TableHintShardingAlgorithm
+
+#football_order_record hint strategy
+spring.shardingsphere.sharding.tables.football_order_record_hint.actual-data-nodes = ds-${0..7}.football_order_record_${0..7}
+spring.shardingsphere.sharding.tables.football_order_record_hint.databaseStrategy.hint.algorithmClassName = com.cpt.data.common.dal.config.DatasourceHintShardingAlgorithm
+spring.shardingsphere.sharding.tables.football_order_record_hint.tableStrategy.hint.algorithmClassName = com.cpt.data.common.dal.config.TableHintShardingAlgorithm
+spring.shardingsphere.props.sql.show = false
+
+# kafka
+spring.kafka.bootstrap-servers = kafka01.theclzb.net:19092,kafka02.theclzb.net:19092,kafka03.theclzb.net:19092
+#spring.kafka.bootstrap-servers = 192.168.10.173:9092,192.168.10.148:9092,192.168.10.182:9092
+spring.kafka.listener.ack-mode = MANUAL
+spring.kafka.listener.type = BATCH
+spring.kafka.listener.concurrency = 3
+spring.kafka.consumer.auto-offset-reset = latest
+spring.kafka.consumer.enable-auto-commit = false
+spring.kafka.consumer.group-id = ${rootArtifactId}
+spring.kafka.consumer.key-deserializer = org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.value-deserializer = org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.max-poll-records = 500
+spring.kafka.consumer.auto-commit-interval = 1000
+
+spring.kafka.producer.acks = all
+spring.kafka.producer.key-serializer = org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.retries = 3
+spring.kafka.producer.value-serializer = org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.compressionType = gzip
+spring.kafka.producer.batchSize = 16384
+spring.kafka.producer.properties.max.request.size = 10485760
+
+#消息推送配置
+spring.rabbitmq.host = kafka01.theclzb.net
+spring.rabbitmq.port = 5672
+spring.rabbitmq.username = imuat
+spring.rabbitmq.password = imuat123
+spring.rabbitmq.cache.channel.size = 25
+spring.rabbitmq.virtual-host = /
+
+#redis 配置
+spring.redis.cluster.nodes[0] = redis-cluster01.theclzb.net:6379
+spring.redis.cluster.nodes[1] = redis-cluster02.theclzb.net:6379
+spring.redis.cluster.nodes[2] = redis-cluster03.theclzb.net:6379
+spring.redis.cluster.nodes[5] = redis-cluster04.theclzb.net:6379
+spring.redis.cluster.nodes[3] = redis-cluster05.theclzb.net:6379
+spring.redis.cluster.nodes[4] = redis-cluster06.theclzb.net:6379
+
+#spring.redis.password =
+spring.redis.cluster.max-redirects = 5
+spring.redis.timeout = 5000ms
+spring.redis.lettuce.pool.max-active = 50
+spring.redis.lettuce.pool.max-idle = 30
+spring.redis.lettuce.pool.min-idle = 5
+#
+management.endpoints.jmx.exposure.include = info, health, prometheus, eureka
+management.endpoints.web.exposure.include = info, health, prometheus, eureka
+management.health.defaults.enabled = false
+hystrix.threadpool.default.coreSize = 3
+hystrix.threadpool.default.maximumSize = 6
+hystrix.threadpool.default.maxQueueSize = 20
+hystrix.threadpool.default.queueSizeRejectionThreshold = 20
+hystrix.threadpool.default.allowMaximumSizeToDivergeFromCoreSize = true
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds = 3000
+hystrix.command.default.circuitBreaker.errorThresholdPercentage = 50
+hystrix.command.default.circuitBreaker.requestVolumeThreshold = 5
+hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds = 3000
+feign.hystrix.enabled = true
+feign.okhttp.enabled = true
+ribbon.IsSecure = false
+ribbon.ReadTimeout = 2000
+ribbon.ConnectTimeout = 2000
+ribbon.eager-load.enabled = true
+# job
+cpt.job.zookeeper = kafka01.theclzb.net:12181,kafka02.theclzb.net:12181,kafka03.theclzb.net:12181
+#cpt.job.zookeeper = 192.168.10.173:2181,192.168.10.148:2181,192.168.10.182:2181
+
+#kafka手动ack
+spring.application.name = ${rootArtifactId}
+spring.cloud.config.fail-fast = false
+spring.cloud.config.discovery.enabled = false
+server.port = 13005
+server.tomcat.max-threads = 800
+server.tomcat.min-spare-threads = 200
+server.tomcat.accesslog.enabled = true
+server.tomcat.accesslog.rotate = true
+server.tomcat.accesslog.directory = ${logging.file.path}
+#eureka
+eureka.instance.prefer-ip-address = true
+eureka.client.serviceUrl.defaultZone = http://basic-services.theclzb.net:8080/eureka/
+#eureka.client.serviceUrl.defaultZone = http://192.168.10.114:8080/eureka/
+eureka.client.registry-fetch-interval-seconds = 10
+# 续约更新时间间隔（默认30秒）
+eureka.instance.lease-renewal-interval-in-seconds = 3
+# 续约到期时间（默认90秒）
+eureka.instance.lease-expiration-duration-in-seconds = 0
+# docker部署获取ip切换
+eureka.instance.ip-address = ${dockerip}
+eureka.instance.instance-id = ${dockerip}:${server.port}
+
+logging.level.com.cpt = INFO
+logging.file.path = ~/logs/${rootArtifactId}
+
+
+#xxl job
+xxl.job.accessToken = 
+xxl.job.admin.addresses = http://basic-services.theclzb.net:11000/xxl-job-admin/
+xxl.job.executor.appname = wos-football-settlement
+xxl.job.executor.ip = ${dockerip}
+xxl.job.executor.port = 8948
+xxl.job.executor.logpath = /data/applogs/xxl-job/jobhandler
+xxl.job.executor.logretentiondays = 10
+
+spring.messages.basename = classpath:i18n/messages

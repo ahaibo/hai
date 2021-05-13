@@ -2,37 +2,37 @@ package com.hai.seo.es;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hai.common.util.RandomUtil;
-import org.apache.http.HttpHost;
+import org.elasticsearch.action.admin.indices.alias.Alias;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.bulk.BulkItemResponse;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.support.WriteRequest;
 import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.client.indices.GetIndexResponse;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.reindex.BulkByScrollResponse;
+import org.elasticsearch.index.reindex.DeleteByQueryRequest;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.ScoreSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,29 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TestES {
-    private static final Logger logger = LoggerFactory.getLogger(TestES.class);
-    private String host = "localhost";
-    private int port = 9200;
-    private String scheme = "http";
-    private RestHighLevelClient client;
-
-    private boolean useLocalEvn = false;
-
-    private void init() {
-        if (!useLocalEvn) {
-            host = "search-es-cptdev-g5yktgl72xbqlkh2lsdomvcsfm.ap-southeast-1.es.amazonaws.com";
-            port = 443;
-            scheme = "https";
-        }
-    }
-
-
-    @Before
-    public void before() {
-        init();
-        client = new RestHighLevelClient(RestClient.builder(new HttpHost(host, port, scheme)));
-    }
+public class TestES extends TestBase {
 
     @Test
     public void test() throws IOException {
@@ -71,13 +49,58 @@ public class TestES {
 
     @Test
     public void index() throws IOException {
+        String type = "_doc";
+        String index = "hai2";
+        // setting 的值
+        Map<String, Object> setmapping = new HashMap<>();
+        // 分区数、副本数、缓存刷新时间
+        setmapping.put("number_of_shards", 10);
+        setmapping.put("number_of_replicas", 1);
+        setmapping.put("refresh_interval", "5s");
+        Map<String, Object> keyword = new HashMap<>();
+        //设置类型
+        keyword.put("type", "keyword");
+        Map<String, Object> lon = new HashMap<>();
+        //设置类型
+        lon.put("type", "long");
+        Map<String, Object> date = new HashMap<>();
+        //设置类型
+        date.put("type", "date");
+        date.put("format", "yyyy-MM-dd HH:mm:ss");
 
-        CreateIndexRequest request = new CreateIndexRequest("hai2");
+        Map<String, Object> jsonMap2 = new HashMap<>();
+        Map<String, Object> properties = new HashMap<>();
+        //设置字段message信息
+        properties.put("uid", lon);
+        properties.put("phone", lon);
+        properties.put("msgcode", lon);
+        properties.put("message", keyword);
+        properties.put("sendtime", date);
+        Map<String, Object> mapping = new HashMap<>();
+        mapping.put("properties", properties);
+        jsonMap2.put(type, mapping);
 
+        GetIndexRequest getRequest = new GetIndexRequest(index);
+        getRequest.local(false);
+        getRequest.humanReadable(true);
+        boolean exists = client.indices().exists(getRequest, RequestOptions.DEFAULT);
+        //如果存在就不创建了
+        if (exists) {
+            System.out.println(index + "索引库已经存在!");
+            return;
+        }
+
+        CreateIndexRequest request = new CreateIndexRequest(index);
+        //加载数据类型
+        request.settings(setmapping);
+        //设置mapping参数
+        request.mapping(jsonMap2);
+        // request.mapping(type, jsonMap2);
+        //设置别名
+        request.alias(new Alias("pancm_alias"));
         request.setMasterTimeout(TimeValue.timeValueMinutes(1));
 
         CreateIndexResponse response = client.indices().create(request, RequestOptions.DEFAULT);
-
         logger.info("isAcknowledged:{}", response.isAcknowledged());
         logger.info("isShardsAcknowledged:{}", response.isShardsAcknowledged());
 
@@ -95,19 +118,6 @@ public class TestES {
         GetIndexRequest request = new GetIndexRequest("hai");
         boolean exists = client.indices().exists(request, RequestOptions.DEFAULT);
         logger.info("index: " + index + "; exists: " + exists);
-    }
-
-    @Test
-    public void deleteIndex() throws IOException {
-        deleteIndex("test.hai");
-    }
-
-    public void deleteIndex(String index) throws IOException {
-        DeleteIndexRequest request = new DeleteIndexRequest(index);
-        request.timeout(TimeValue.timeValueMinutes(2));
-        request.masterNodeTimeout(TimeValue.timeValueMinutes(1));
-        AcknowledgedResponse acknowledgedResponse = client.indices().delete(request, RequestOptions.DEFAULT);
-        logger.info(JSONObject.toJSONString(acknowledgedResponse));
     }
 
     //documents
@@ -149,43 +159,6 @@ public class TestES {
         jsonMap.put("price", RandomUtil.randomNumber(10000, 100));
         jsonMap.put("create_date", "2019-07-05");
         return jsonMap;
-    }
-
-    @Test
-    public void getDocument() throws IOException {
-        GetRequest request = new GetRequest("hai", "goods", "1");
-        GetResponse getResponse = client.get(request, RequestOptions.DEFAULT);
-        logger.info(JSONObject.toJSONString(getResponse));
-    }
-
-    @Test
-    public void search() throws IOException {
-        SearchRequest searchRequest = new SearchRequest();
-        searchRequest.indices("hai2");
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
-        //sort
-        searchSourceBuilder.sort(new ScoreSortBuilder().order(SortOrder.DESC));
-//        searchSourceBuilder.sort(new FieldSortBuilder("title").order(SortOrder.ASC));
-        searchSourceBuilder.from(0);
-        searchSourceBuilder.size(20);
-        searchSourceBuilder.timeout(TimeValue.timeValueSeconds(60));
-        searchRequest.source(searchSourceBuilder);
-
-        //search
-        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-        SearchHits searchHits = searchResponse.getHits();
-        SearchHit[] hits = searchHits.getHits();
-
-        for (SearchHit hit : hits) {
-            /*Map<String, DocumentField> map = hit.getFields();
-            for (Map.Entry<String, DocumentField> entry : map.entrySet()) {
-                logger.info(entry.getKey() + ":" + JSONObject.toJSONString(entry.getValue()));
-            }*/
-            logger.info(hit.getSourceAsString());
-//            logger.info(hit.getSourceAsMap().toString());
-        }
-
     }
 
     @Test
@@ -245,13 +218,6 @@ public class TestES {
         /*client.bulkAsync(bulkRequest, RequestOptions.DEFAULT, ActionListener.wrap(() ->
                 logger.info("thread.current.name:" + Thread.currentThread().getName()))
         );*/
-    }
-
-    @After
-    public void after() throws IOException {
-        if (null != client) {
-            client.close();
-        }
     }
 
 }

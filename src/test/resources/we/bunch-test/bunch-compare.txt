@@ -1,0 +1,38 @@
+
+Bunch5Compute
+	2020-12-04 18:32:02.821 INFO  c.c.d.b.s.impl.SettlementTest [Office-2043,192.168.220.1,,,] 
+	bunchCompute test times:[4736, 4240, 4324, 4203, 4151, 4070, 4178, 4095, 4888, 5159]
+
+	ThreadPoolTaskExecutor
+	2020-12-04 20:27:31.994 INFO  c.c.d.b.s.impl.SettlementTest [Office-2043,192.168.220.1,,,] 
+	bunchCompute test times:[2896, 2031, 2024, 2270, 2052, 2056, 2060, 2079, 2034, 2265]
+
+Bunch6Compute
+	2020-12-04 19:39:42.535 INFO  c.c.d.b.s.impl.SettlementTest [Office-2043,192.168.220.1,,,] 
+	bunchCompute test times:[45627, 44895, 45004, 44646, 47735, 50642, 49414, 49337, 51720, 50308]
+
+	ThreadPoolTaskExecutor
+	2020-12-04 21:38:07.185 INFO  c.c.d.b.s.impl.SettlementTest [Office-2043,192.168.220.1,,,] 
+	bunchCompute test times:[24340, 22786, 21119, 20631, 21120, 22016, 20781, 20738, 21811, 21540]
+
+Bunch7Compute
+	2020-12-04 20:15:16.104 INFO  c.c.d.b.s.impl.SettlementTest [Office-2043,192.168.220.1,,,] 
+	bunchCompute test times:[236262, 198189, 209116, 189763, 195085, 186320, 184105, 203592, 194813, 196410]
+	
+	ThreadPoolTaskExecutor
+	2020-12-04 21:58:29.670 INFO  c.c.d.b.s.impl.SettlementTest [Office-2043,192.168.220.1,,,] 
+	bunchCompute test times:[93364, 95115, 93343, 93937, 99419, 86943, 107385, 97531, 91520, 94949]
+
+Bunch8Compute
+	2020-12-04 21:07:10.658 INFO  c.c.d.b.s.impl.SettlementTest [Office-2043,192.168.220.1,,,] 
+	bunchCompute test times:[1000792, 989242]
+	
+	ThreadPoolTaskExecutor
+	2020-12-04 22:28:20.511 INFO  c.c.d.b.s.impl.SettlementTest [Office-2043,192.168.220.1,,,] 
+	bunchCompute test times:[667813, 634938]
+	
+	
+
+
+
+

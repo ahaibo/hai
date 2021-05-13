@@ -441,6 +441,12 @@ public class FileUtil {
         return null == newFile ? file : newFile;
     }
 
+    @Test
+    public void testFileRenameByPosAndLen() {
+        String replaceString = "走遍美国";
+        fileRenameByPosAndLen("E:\\迅雷下载\\走遍美国\\走遍美国1\\走遍美国完整版字幕", 0, replaceString);
+    }
+
     // 在指定位置插入指定长度字符
     public static void fileRenameByPosAndLen(String filePath, int pos, String replaceString) {
         fileRenameByPosAndLen(filePath, pos, 0, replaceString);
@@ -812,7 +818,8 @@ public class FileUtil {
         // sb1.append("第三十一讲#第三十二讲#第三十三讲#第三十四讲#第三十五讲#第三十六讲#第三十七讲#第三十八讲#第三十九讲#第四十讲#第四十一讲#第四十二讲#第四十三讲#第四十四讲#第四十五讲");
 
 //		StringBuilder sb2 = new StringBuilder();
-        // sb2.append("01#02#03#04#05#06#07#08#09#10#11#12#13#14#15#16#17#18#19#20#21#22#23#24#25#26#27#28#29#30#31#32#33#34#35#36#37#38#39#40#41#42#43#44#45");
+        // sb2.append("01#02#03#04#05#06#07#08#09#10#11#12#13#14#15#16#17#18#19#20#21#22#23#24#25#26#27#28#29#30#31#32#33#34#35#36#37#38#39#40#41
+        // #42#43#44#45");
 
         // for(int i=1; i<=12; i++){
         // renameFileBySpecificString("D:\\Tutorial Videos\\C,C++\\C语言也能干大事之C语言开发网站教程\\Day" + i, ".MP04", ".mp4",

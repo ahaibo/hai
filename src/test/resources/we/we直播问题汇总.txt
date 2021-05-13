@@ -1,0 +1,25 @@
+
+we直播开发初步问题
+1.com.cpt.base.model.Pagination
+com.cpt.base.model.PaginationRequest
+建议添加排序字段，排序方式等字段
+
+2.一些业务无关的工具类尽量都放到公共模块，如 DateUtil，NumberUtil，MathUtil，HttpUtil 等等。。
+一些共用的常量，枚举等尽量放到公共模块统一引用和修改
+
+3.服务名建议定义常量，统一引用。如我要 integration app-member 需要手动写，不方便维护和管理
+
+4.mybatis mapper 无分页功能
+
+5.现在的接口定义格式，参数格式？参数是否签名？
+
+6.上传文件走公共服务？
+
+7.开发环境相关
+redis，kafka，xxljob，apollo，eureka等
+
+8.其它。。。
+
+
+
+青菜 萝卜 咸菜 豆腐  米汤

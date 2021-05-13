@@ -1,0 +1,47 @@
+management.endpoints.jmx.exposure.include = info, health, prometheus, eureka
+management.endpoints.web.exposure.include = info, health, prometheus, eureka
+management.health.defaults.enabled = false
+
+#eureka
+eureka.instance.ip-address = ${dockerip}
+eureka.instance.instance-id = ${dockerip}:10018
+eureka.instance.prefer-ip-address = true
+eureka.client.serviceUrl.defaultZone = http://eureka.weuatapp.net:8080/eureka/
+eureka.client.registry-fetch-interval-seconds = 10
+# 续约更新时间间隔（默认30秒）
+eureka.instance.lease-renewal-interval-in-seconds = 3
+# 续约到期时间（默认90秒）
+eureka.instance.lease-expiration-duration-in-seconds = 0
+
+hystrix.threadpool.default.coreSize = 3
+hystrix.threadpool.default.maximumSize = 6
+hystrix.threadpool.default.maxQueueSize = 20
+hystrix.threadpool.default.queueSizeRejectionThreshold = 20
+hystrix.threadpool.default.allowMaximumSizeToDivergeFromCoreSize = true
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds = 3000
+hystrix.command.default.circuitBreaker.errorThresholdPercentage = 50
+hystrix.command.default.circuitBreaker.requestVolumeThreshold = 5
+hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds = 3000
+
+feign.hystrix.enabled = true
+feign.okhttp.enabled = true
+
+ribbon.IsSecure = false
+ribbon.ReadTimeout = 2000
+ribbon.ConnectTimeout = 2000
+ribbon.eager-load.enabled = true
+
+server.port = 10018
+server.tomcat.max-threads = 800
+server.tomcat.min-spare-threads = 200
+server.tomcat.accesslog.enabled = true
+server.tomcat.accesslog.rotate = true
+
+logging.level.com.cpt = INFO
+logging.default.level = INFO
+
+opentracing.jaeger.log-spans = false
+
+cpt.telegram.bot.enable = true
+cpt.telegram.bot.chatId = -447037576
+cpt.telegram.bot.token = 1005875371:AAEpOFqMAoU22nICzkFHEBkNRfHnvrRSuq0

@@ -1,0 +1,81 @@
+spring.datasource.dynamic.primary = mysql
+spring.datasource.dynamic.datasource.mysql.url = jdbc:mysql://192.168.10.111:3309/we_notice?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false
+spring.datasource.dynamic.datasource.mysql.username = weuat
+spring.datasource.dynamic.datasource.mysql.password = Sds!1f8S1MF&
+spring.datasource.dynamic.datasource.mysql.driver-class-name = com.mysql.jdbc.Driver
+spring.datasource.dynamic.datasource.mysql.type = com.zaxxer.hikari.HikariDataSource
+spring.datasource.dynamic.datasource.tidb.url = jdbc:mysql://192.168.10.111:4000/we?autoReconnect=true&useSSL=false
+spring.datasource.dynamic.datasource.tidb.username = weuat
+spring.datasource.dynamic.datasource.tidb.password = Sds!1f8S1MF&
+spring.datasource.dynamic.datasource.tidb.driver-class-name = com.mysql.jdbc.Driver
+spring.datasource.dynamic.datasource.tidb.type = com.zaxxer.hikari.HikariDataSource
+
+spring.datasource.dynamic.hikari.transactionIsolation = TRANSACTION_READ_COMMITTED
+spring.datasource.dynamic.hikari.connection-timeout = 30000
+spring.datasource.dynamic.hikari.idleTimeout = 600000
+spring.datasource.dynamic.hikari.maxLifetime = 1800000
+spring.datasource.dynamic.hikari.corePoolSize = 5
+spring.datasource.dynamic.hikari.maximumPoolSize = 10
+
+management.endpoints.jmx.exposure.include = info, health, prometheus, eureka
+management.endpoints.web.exposure.include = info, health, prometheus, eureka
+management.health.defaults.enabled = false
+
+hystrix.threadpool.default.coreSize = 3
+hystrix.threadpool.default.maximumSize = 6
+hystrix.threadpool.default.maxQueueSize = 20
+hystrix.threadpool.default.queueSizeRejectionThreshold = 20
+hystrix.threadpool.default.allowMaximumSizeToDivergeFromCoreSize = true
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds = 3000
+hystrix.command.default.circuitBreaker.errorThresholdPercentage = 50
+hystrix.command.default.circuitBreaker.requestVolumeThreshold = 5
+hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds = 3000
+
+feign.hystrix.enabled = true
+feign.okhttp.enabled = true
+
+ribbon.IsSecure = false
+ribbon.ReadTimeout = 2000
+ribbon.ConnectTimeout = 2000
+ribbon.eager-load.enabled = true
+
+pagehelper.default-count = false
+opentracing.jaeger.log-spans = false
+
+cpt.job.zookeeper = kafka01.weuatapp.net:12181,kafka02.weuatapp.net:12181,kafka03.weuatapp.net:12181
+
+#极光推送每次推送别名数组大小
+jgPush.pageSize = 1000
+jpush.liveTime = 86400
+# 是否生成环境，true表示生成环境
+jpush.apnsProduction = true
+
+eureka.instance.prefer-ip-address = true
+eureka.client.serviceUrl.defaultZone = http://eureka.weuatapp.net:8080/eureka/
+eureka.client.registry-fetch-interval-seconds = 10
+# 续约更新时间间隔（默认30秒）
+eureka.instance.lease-renewal-interval-in-seconds = 3
+# 续约到期时间（默认90秒）
+eureka.instance.lease-expiration-duration-in-seconds = 0
+eureka.instance.ip-address = ${dockerip}
+eureka.instance.instance-id = ${dockerip}:10007
+
+spring.application.name = ${rootArtifactId}
+server.port = 10007
+
+server.tomcat.max-threads = 800
+server.tomcat.min-spare-threads = 200
+server.tomcat.accesslog.enabled = true
+server.tomcat.accesslog.rotate = true
+server.tomcat.accesslog.directory = ${logging.file.path}
+
+logging.level.com.cpt = INFO
+logging.file.path = ~/logs/${spring.application.name}
+
+xxl.job.accessToken = 
+xxl.job.admin.addresses = http://xxl-job.weuatapp.net:11000/xxl-job-admin/
+xxl.job.executor.appname = cpt-notice
+xxl.job.executor.ip = 
+xxl.job.executor.port = 9990
+xxl.job.executor.logpath = /data/applogs/xxl-job/jobhandler
+xxl.job.executor.logretentiondays = 30

@@ -1,0 +1,142 @@
+
+https://open.sportnanoapi.com/api/v2/sports/jc/result 获取竞彩比赛开奖结果 
+获取近两天（含当日）的竞彩足球和竞彩篮球比赛的开奖结果
+建议请求频次：5~10min/次
+user
+用户名，请联系商务
+secret
+用户密钥，请联系商务
+返回
+{
+  "type": "object",
+  "properties": {
+    "code": {"type": "integer"},
+    "data": {
+      "type": "object",
+      "properties": {
+        "jczq": {
+          "type": "array",
+          "description": "足球项",
+          "items": {
+            "type": "object",
+            "description": "足球项",
+            "properties": {
+              "id": {"type": "integer", "description": "唯一，用于和“体彩关联接口”中的比赛关联"},
+              "comp": {"type": "string", "description": "赛事名称"},
+              "home": {"type": "string", "description": "主队名称"},
+              "away": {"type": "string", "description": "客队名称"},
+              "short_comp": {"type": "string", "description": "赛事简称"},
+              "short_home": {"type": "string", "description": "主队简称"},
+              "short_away": {"type": "string", "description": "客队简称"},
+              "issue_num": {"type": "string", "description": "序号"},
+              "match_time": {"type": "integer", "description": "比赛时间"},
+              "home_score": {"type": "integer", "description": "主队比分"},
+              "away_score": {"type": "integer", "description": "客队比分"},
+              "half_home_score": {"type": "integer", "description": "主队半场比分"},
+              "half_away_score": {"type": "integer", "description": "客队半场比分"},
+              "spf": {
+                "type": "string",
+                "description": "胜平负，顺序：结果,赔率；<br/>结果：3-主胜、1-平、0-客胜"
+              },
+              "rq": {
+                "type": "string",
+                "description": "让球胜平负，顺序：让球,结果,赔率；<br/>结果：3-主胜、1-平、0-客胜"
+              },
+              "bf": {"type": "string", "description": "比分，顺序：结果,赔率"},
+              "jq": {"type": "string", "description": "进球，顺序：结果,赔率"},
+              "bqc": {
+                "type": "string",
+                "description": "半全场，顺序：半场结果,全场结果,赔率；<br/>结果：3-主胜、1-平、0-客胜"
+              }
+            }
+          }
+        },
+        "jclq": {
+          "type": "array",
+          "description": "篮球项",
+          "items": {
+            "type": "object",
+            "description": "篮球项",
+            "properties": {
+              "id": {"type": "integer", "description": "唯一，用于和“体彩关联接口”中的比赛关联"},
+              "comp": {"type": "string", "description": "赛事名称"},
+              "home": {"type": "string", "description": "主队名称"},
+              "away": {"type": "string", "description": "客队名称"},
+              "short_comp": {"type": "string", "description": "赛事简称"},
+              "short_home": {"type": "string", "description": "主队简称"},
+              "short_away": {"type": "string", "description": "客队简称"},
+              "issue_num": {"type": "string", "description": "序号"},
+              "match_time": {"type": "integer", "description": "比赛时间"},
+              "home_score": {"type": "integer", "description": "主队比分"},
+              "away_score": {"type": "integer", "description": "客队比分"},
+              "sf": {
+                "type": "string",
+                "description": "胜负，顺序：结果,赔率；<br/>结果：3-主胜、0-客胜"
+              },
+              "rf": {
+                "type": "string",
+                "description": "让分胜负，顺序：让分,结果,赔率；<br/>结果：3-主胜、0-客胜"
+              },
+              "dxf": {
+                "type": "string",
+                "description": "大小分，顺序：大小分,结果,赔率；<br/>结果：1-大分、0-小分"
+              },
+              "sfc": {
+                "type": "string",
+                "description": "胜分差，顺序：结果,赔率；<br/>结果1-6：客胜1-5、6-10、11-15、16-20、21-25、26+；<br/>结果7-12：主胜1-5、6-10、11-15、16-20、21-25、26+"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+example
+{
+    "code": 0,
+    "data": {
+        "jczq": [
+            {
+                "id": 1002467,
+                "comp": "欧洲国家联赛",
+                "home": "塞浦路斯",
+                "away": "卢森堡",
+                "short_comp": "欧国联",
+                "short_home": "塞浦路斯",
+                "short_away": "卢森堡",
+                "issue_num": "6025",
+                "match_time": 1605373200,
+                "home_score": 2,
+                "away_score": 1,
+                "half_home_score": 1,
+                "half_away_score": 1,
+                "spf": "3,3.05",
+                "rq": "+1,3,1.51",
+                "bf": "2:1,10.50",
+                "bqc": "1,3,7.25",
+                "jq": "3,4.10"
+            }
+		],
+        "jclq": [
+            {
+                "id": 1002455,
+                "comp": "西班牙篮球联赛",
+                "home": "富恩拉夫拉达",
+                "away": "萨拉戈萨",
+                "short_comp": "西篮联",
+                "short_home": "富恩拉夫",
+                "short_away": "萨拉戈萨",
+                "issue_num": "6301",
+                "match_time": 1605373200,
+                "home_score": 82,
+                "away_score": 81,
+                "sf": "3,1.42",
+                "rf": "-3.5,0,1.78",
+                "sfc": "7,3.65",
+                "dxf": "172.5,0,1.75"
+            }
+		]
+    }
+}

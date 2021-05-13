@@ -41,7 +41,7 @@ public class LotteryBO {
     private String attr;
     private String attrTag;
     private String number;
-    private String date = "2020-12-16 15:00:00";
+    private String date = "2021-05-07 15:00:00";
     private int lotteryId;
     private BigDecimal odds1 = new BigDecimal("9.85");
     private BigDecimal odds2 = BigDecimal.ZERO;
@@ -51,7 +51,7 @@ public class LotteryBO {
     private int status = 1;
     private int gendan = 0;
     private int sort = 1;
-    private String icon = "http://cptuatzx.oss-cn-hongkong.aliyuncs.com/image/head/2020-08-04/dd1ca5f5-350e-4e6a-9204-83ab8a3b5320.png";
+    private String icon = "https://static.zk01.cc/image/cztp/twxl2X.png";
 
     //117:pcdd; 118:fc3d; 119:ssq
     public int getLotteryId() {
@@ -165,13 +165,29 @@ public class LotteryBO {
         return sql.toString();
     }
 
-    public String genPlayClassGroupAttrSql(int id, int attrId) {
+    public String genPlayClassGroupAttrSql(int id, int attrId, int lotteryId) {
         StringBuilder sql = new StringBuilder();
-        sql.append("INSERT INTO `lottery_play_class_group_attribute` VALUES (");
-        sql.append(id).append(", ").append(getLotteryId()).append(", ").append(attrId).append(", ");
+        sql.append("INSERT INTO `lottery_play_class_group_attribute`(`id`, `lottery_id`, `play_class_group_attribute_id`, `play_tag`, "
+                + "`play_class_tag`, `group_tag`, `group_name`, `attribute_tag`, `attribute_name`, `odds`, `odds_two`, `odds_three`, `odds_four`, "
+                + "`odds_five`, `odds_six`, `odds_seven`, `odds_eight`, `odds_nine`, `odds_ten`, `odds_eleven`, `odds_twelve`, `odds_thirteen`, "
+                + "`odds_fourteen`, `odds_fifteen`, `odds_sixteen`, `odds_seventeen`, `odds_eighteen`, `odds_nineteen`, `odds_twenty`, "
+                + "`min_bets_money`, `max_bets_money`, `status`, `documentary_status`, `sort`, `update_time`, `create_time`) VALUES (");
+        sql.append(id).append(", ").append(lotteryId).append(", ").append(attrId).append(", ");
         sql.append("'").append(obtainPlayTag()).append("', '").append(obtainPlayClassTag()).append("', '").append(obtainGroupTag()).append("', ");
-        sql.append("'").append(group).append("', '").append(number).append("', '").append(attr).append("', ");
-        sql.append(odds1).append(", ").append(odds2).append(", ");
+        sql.append("'").append(group).append("', '").append(attrTag).append("', '").append(attr).append("', ");
+        // sql.append(odds1).append(", ");
+        sql.append(new BigDecimal(99)).append(", ");
+        sql.append(new BigDecimal(88)).append(", ");
+        sql.append(new BigDecimal(77)).append(", ");
+        sql.append(new BigDecimal(66)).append(", ");
+        sql.append(new BigDecimal(55)).append(", ");
+        sql.append(new BigDecimal(44)).append(", ");
+        sql.append(new BigDecimal(33)).append(", ");
+        sql.append(new BigDecimal(22)).append(", ");
+        sql.append(new BigDecimal(11)).append(", ");
+        for (int i = 0; i < 11; i++) {
+            sql.append(odds2).append(", ");
+        }
         sql.append(minBetAmount).append(", ").append(maxBetAmount).append(", ");
         sql.append(status).append(", ").append(gendan).append(", ").append(sort).append(", ");
         sql.append("'").append(date).append("', '").append(date).append("');");

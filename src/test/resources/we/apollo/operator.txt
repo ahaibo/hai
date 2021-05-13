@@ -1,0 +1,87 @@
+server.port = 10010
+spring.datasource.driverClassName = com.mysql.jdbc.Driver
+spring.datasource.username = weuat
+spring.datasource.password = Sds!1f8S1MF&
+spring.datasource.url = jdbc:mysql://192.168.10.111:3309/we_operator?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&allowMultiQueries=true
+spring.datasource.type = com.zaxxer.hikari.HikariDataSource
+spring.datasource.hikari.connection-timeout = 30000
+spring.datasource.hikari.idleTimeout = 600000
+spring.datasource.hikari.maxLifetime = 1800000
+spring.datasource.hikari.maximumPoolSize = 10
+#redis
+spring.redis.cluster.nodes[0] = redis-cluster-01.weuatapp.net:6379
+spring.redis.cluster.nodes[1] = redis-cluster-02.weuatapp.net:6379
+spring.redis.cluster.nodes[2] = redis-cluster-03.weuatapp.net:6379
+spring.redis.cluster.nodes[3] = redis-cluster-04.weuatapp.net:6379
+spring.redis.cluster.nodes[4] = redis-cluster-05.weuatapp.net:6379
+spring.redis.cluster.nodes[5] = redis-cluster-06.weuatapp.net:6379
+spring.redis.cluster.max-redirects = 5
+#spring.redis.password =
+spring.redis.timeout = 10000ms
+spring.redis.lettuce.pool.max-active = 50
+spring.redis.lettuce.pool.max-idle = 10
+spring.redis.lettuce.pool.min-idle = 5
+# kafka
+spring.kafka.bootstrap-servers = kafka01.weuatapp.net:19092,kafka02.weuatapp.net:19092,kafka03.weuatapp.net:19092
+spring.kafka.consumer.auto-offset-reset = latest
+spring.kafka.consumer.enable-auto-commit = false
+spring.kafka.consumer.group-id = CPT-OPERATOR
+spring.kafka.consumer.key-deserializer = org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.value-deserializer = org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.max-poll-records = 500
+spring.kafka.consumer.auto-commit-interval = 1000
+spring.kafka.listener.type = BATCH
+spring.kafka.listener.concurrency = 1
+spring.kafka.producer.acks = all
+spring.kafka.producer.key-serializer = org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.retries = 3
+spring.kafka.producer.value-serializer = org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.compressionType = gzip
+spring.kafka.producer.batchSize = 16384
+spring.kafka.producer.properties.max.request.size = 10485760
+
+management.endpoints.jmx.exposure.include = info, health, prometheus, eureka
+management.endpoints.web.exposure.include = info, health, prometheus, eureka
+management.health.defaults.enabled = false
+hystrix.threadpool.default.coreSize = 3
+hystrix.threadpool.default.maximumSize = 6
+hystrix.threadpool.default.maxQueueSize = 20
+hystrix.threadpool.default.queueSizeRejectionThreshold = 20
+hystrix.threadpool.default.allowMaximumSizeToDivergeFromCoreSize = true
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds = 70000
+hystrix.command.default.circuitBreaker.errorThresholdPercentage = 50
+hystrix.command.default.circuitBreaker.requestVolumeThreshold = 5
+hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds = 3000
+feign.hystrix.enabled = true
+feign.okhttp.enabled = true
+feign.client.config.CPT-DRAWING.connectTimeout = 70000
+feign.client.config.CPT-DRAWING.readTimeout = 70000
+ribbon.IsSecure = false
+ribbon.ReadTimeout = 2000
+ribbon.ConnectTimeout = 2000
+ribbon.eager-load.enabled = true
+
+cpt.job.zookeeper = kafka01.weuatapp.net:12181,kafka02.weuatapp.net:12181,kafka03.weuatapp.net:12181
+cpt.job.baseSleepTimeMilliseconds = 2000
+cpt.job.maxRetries = 3
+cpt.job.maxSleepTimeMilliseconds = 3000
+cpt.job.namespace = CPT-OPERATOR
+cpt.job.testTaskCron = 0/2 * * * * ? *
+
+eureka.instance.prefer-ip-address = true
+#eureka.instance.ip-address = 192.168.1.113
+#eureka.instance.instance-id = 192.168.1.113:10010
+eureka.instance.ip-address = ${dockerip}
+eureka.instance.instance-id = ${dockerip}:10010
+# 续约更新时间间隔（默认30秒）
+eureka.instance.lease-renewal-interval-in-seconds = 3
+# 续约到期时间（默认90秒）
+eureka.instance.lease-expiration-duration-in-seconds = 0
+
+eureka.client.serviceUrl.defaultZone = http://eureka.weuatapp.net:8080/eureka/
+eureka.client.registry-fetch-interval-seconds = 10
+redis.token.expire.time = 168
+
+logging.default.level = INFO
+logging.level.com.cpt = INFO
+opentracing.jaeger.log-spans = false

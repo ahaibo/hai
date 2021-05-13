@@ -7,7 +7,6 @@ import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.hai.common.util.DateUtils;
-import com.hai.we.LotteryBO;
 import org.apache.groovy.util.Maps;
 import org.junit.Test;
 
@@ -19,7 +18,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -27,7 +25,6 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -258,10 +255,7 @@ public class TempTest {
         try {
             bufferedReader = new BufferedReader(new FileReader(filePath));
             String line;
-            //INSERT INTO `lottery_play_class_group_attribute` VALUES (30829, 117, 16128, '1410', '14101', '1410110', '大', '141011010', '10', 180
-            // .000, 0.000, 1.000, 99999999.000, 1, 0, 1, '2020-12-08 15:00:00', '2020-12-08 15:00:00');
 
-            List<LotteryBO> lotteryBOList = new ArrayList<>();
             while ((line = bufferedReader.readLine()) != null) {
 //                System.out.print("'" + line + "',");
                 //line = line.replaceAll("\\t*", ",");
@@ -280,44 +274,6 @@ public class TempTest {
                 }
                 //System.out.println("list: - " + list);
                 //System.out.println();
-                //size:11, data: [系列, 系列Tag, 玩法, 玩法Tag, 玩法分类, 玩法分类Tag, 组, 组Tag, 属性, 属性Tag, 编号]
-                //size:11, data: [PC系列, 14, 混合, 10, 混合, 1, 混合, 10, 大, 10, 141011010]
-                LotteryBO lotteryBO = new LotteryBO();
-                lotteryBO.setSeriesName(list.get(0));
-                lotteryBO.setSeriesTag(list.get(1));
-                lotteryBO.setPlayName(list.get(2));
-                lotteryBO.setPlayTag(list.get(3));
-                lotteryBO.setPlayClass(list.get(4));
-                lotteryBO.setPlayClassTag(list.get(5));
-                lotteryBO.setGroup(list.get(6));
-                lotteryBO.setGroupTag(list.get(7));
-                lotteryBO.setAttr(list.get(8));
-                lotteryBO.setAttrTag(list.get(9));
-                lotteryBO.setNumber(list.get(10));
-                lotteryBOList.add(lotteryBO);
-                //System.out.println("lotteryBO - " + lotteryBO + "\n");
-            }
-
-            int id = 32419;
-            int attrId = 16965;
-            Set<String> seriesSql = new HashSet<>();
-            Set<String> lotterySql = new HashSet<>();
-            Set<String> playSql = new HashSet<>();
-            Set<String> playClassSql = new HashSet<>();
-            Set<String> playClassGroupSql = new HashSet<>();
-            List<String> playClassGroupAttrSql = new ArrayList<>();
-            for (int i = 0, size = lotteryBOList.size(); i < size; i++) {
-                LotteryBO bo = lotteryBOList.get(i);
-                String sql = bo.genPlayClassGroupAttrSql(id, attrId);
-                System.out.println(sql);
-                //seriesSql.add(bo.genSeriesSql(seriesSql.size()));
-                //lotterySql.add(bo.genLotterySql(lotterySql.size()));
-                //playSql.add(bo.genPlaySql(playSql.size()));
-                //playClassSql.add(bo.genPlayClassSql(playClassSql.size()));
-                //playClassGroupSql.add(bo.genPlayClassGroupSql(playClassGroupSql.size()));
-                playClassGroupAttrSql.add(sql);
-                id++;
-                attrId++;
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

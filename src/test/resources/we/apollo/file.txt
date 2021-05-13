@@ -1,0 +1,55 @@
+management.endpoints.jmx.exposure.include = info, health, prometheus, eureka
+management.endpoints.web.exposure.include = info, health, prometheus, eureka
+management.health.defaults.enabled = false
+hystrix.threadpool.default.coreSize = 3
+hystrix.threadpool.default.maximumSize = 6
+hystrix.threadpool.default.maxQueueSize = 20
+hystrix.threadpool.default.queueSizeRejectionThreshold = 20
+hystrix.threadpool.default.allowMaximumSizeToDivergeFromCoreSize = true
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds = 3000
+hystrix.command.default.circuitBreaker.errorThresholdPercentage = 50
+hystrix.command.default.circuitBreaker.requestVolumeThreshold = 5
+hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds = 3000
+feign.hystrix.enabled = true
+feign.okhttp.enabled = true
+ribbon.IsSecure = false
+ribbon.ReadTimeout = 5000
+ribbon.ConnectTimeout = 5000
+ribbon.eager-load.enabled = true
+server.port = 10017
+server.tomcat.max-threads = 800
+server.tomcat.min-spare-threads = 200
+server.tomcat.accesslog.enabled = true
+server.tomcat.accesslog.rotate = true
+server.tomcat.accesslog.directory = ${logging.file.path}
+server.connection-timeout = 15000
+
+#文件大小限制
+spring.servlet.multipart.enabled = true
+spring.servlet.multipart.max-file-size = 60MB
+spring.servlet.multipart.max-request-size = 60MB
+
+eureka.instance.prefer-ip-address = true
+# 续约更新时间间隔（默认30秒）
+eureka.instance.lease-renewal-interval-in-seconds = 3
+# 续约到期时间（默认90秒）
+eureka.instance.lease-expiration-duration-in-seconds = 0
+eureka.client.serviceUrl.defaultZone = http://eureka.weuatapp.net:8080/eureka/
+eureka.client.registry-fetch-interval-seconds = 10
+eureka.instance.ip-address = ${dockerip}
+eureka.instance.instance-id = ${dockerip}:10017
+
+#日志
+logging.default.level = INFO
+logging.level.com.cpt = INFO
+logging.file.path = ~/logs/${rootArtifactId}
+opentracing.jaeger.log-spans = false
+
+#OSS配置
+oss.file.endpoint = oss-cn-hongkong.aliyuncs.com
+oss.file.key-id = LTAII6VhYzdhi15w
+oss.file.key-secret = UHhfKtLv37bVeWB3nbv5BE1CZINTwV
+oss.file.bucket-name = cptuatzx
+oss.file.file-host = http://cptuatzx.oss-cn-hongkong.aliyuncs.com/
+oss.file.compress = 1
+oss.file.compress.min-size = 200

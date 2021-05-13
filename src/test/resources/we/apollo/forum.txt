@@ -1,0 +1,80 @@
+server.port = 10019
+spring.application.name = CPT-FORUM
+
+spring.data.mongodb.custom.database = we-forum
+spring.data.mongodb.custom.address = mongodb-cluster-01.weuatapp.net:27001,mongodb-cluster-02.weuatapp.net:27001,mongodb-cluster-03.weuatapp.net:27001
+spring.data.mongodb.custom.replicaSet = myrs
+#spring.data.mongodb.custom.username = weuat
+#spring.data.mongodb.custom.password = j&dfga$1
+#spring.data.mongodb.custom.authenticationDatabase = we-forum
+spring.data.mongodb.custom.maxConnections = 100
+spring.data.mongodb.custom.minConnections = 10
+spring.data.mongodb.custom.maxQueue = 100
+#redis
+spring.redis.cluster.nodes[0] = redis-cluster-01.weuatapp.net:6379
+spring.redis.cluster.nodes[1] = redis-cluster-02.weuatapp.net:6379
+spring.redis.cluster.nodes[2] = redis-cluster-03.weuatapp.net:6379
+spring.redis.cluster.nodes[3] = redis-cluster-04.weuatapp.net:6379
+spring.redis.cluster.nodes[4] = redis-cluster-05.weuatapp.net:6379
+spring.redis.cluster.nodes[5] = redis-cluster-06.weuatapp.net:6379
+spring.redis.cluster.max-redirects = 5
+#spring.redis.password =
+spring.redis.timeout = 5000ms
+spring.redis.lettuce.pool.max-active = 50
+spring.redis.lettuce.pool.max-idle = 10
+spring.redis.lettuce.pool.min-idle = 5
+# kafka
+spring.kafka.bootstrap-servers = kafka01.weuatapp.net:19092,kafka02.weuatapp.net:19092,kafka03.weuatapp.net:19092
+spring.kafka.consumer.auto-offset-reset = latest
+spring.kafka.consumer.enable-auto-commit = false
+spring.kafka.consumer.group-id = CPT-FORUM
+spring.kafka.consumer.key-deserializer = org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.value-deserializer = org.apache.kafka.common.serialization.StringDeserializer
+spring.kafka.consumer.max-poll-records = 500
+spring.kafka.consumer.auto-commit-interval = 1000
+spring.kafka.listener.type = BATCH
+spring.kafka.listener.concurrency = 1
+spring.kafka.producer.acks = all
+spring.kafka.producer.key-serializer = org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.retries = 3
+spring.kafka.producer.value-serializer = org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.compressionType = gzip
+spring.kafka.producer.batchSize = 16384
+spring.kafka.producer.properties.max.request.size = 10485760
+
+management.endpoints.jmx.exposure.include = info, health, prometheus, eureka
+management.endpoints.web.exposure.include = info, health, prometheus, eureka
+management.health.defaults.enabled = false
+hystrix.threadpool.default.coreSize = 3
+hystrix.threadpool.default.maximumSize = 6
+hystrix.threadpool.default.maxQueueSize = 20
+hystrix.threadpool.default.queueSizeRejectionThreshold = 20
+hystrix.threadpool.default.allowMaximumSizeToDivergeFromCoreSize = true
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds = 70000
+hystrix.command.default.circuitBreaker.errorThresholdPercentage = 50
+hystrix.command.default.circuitBreaker.requestVolumeThreshold = 5
+hystrix.command.default.circuitBreaker.sleepWindowInMilliseconds = 3000
+feign.hystrix.enabled = true
+feign.okhttp.enabled = true
+ribbon.IsSecure = false
+ribbon.ReadTimeout = 2000
+ribbon.ConnectTimeout = 2000
+ribbon.eager-load.enabled = true
+cpt.job.zookeeper = kafka01.weuatapp.net:12181,kafka02.weuatapp.net:12181,kafka03.weuatapp.net:12181
+
+eureka.instance.prefer-ip-address = true
+# 续约更新时间间隔（默认30秒）
+eureka.instance.lease-renewal-interval-in-seconds = 3
+# 续约到期时间（默认90秒）
+eureka.instance.lease-expiration-duration-in-seconds = 0
+
+eureka.client.serviceUrl.defaultZone = http://eureka.weuatapp.net:8080/eureka/
+eureka.client.registry-fetch-interval-seconds = 10
+redis.token.expire.time = 168
+
+logging.default.level = INFO
+logging.level.com.cpt = INFO
+opentracing.jaeger.log-spans = false
+
+eureka.instance.ip-address = ${dockerip}
+eureka.instance.instance-id = ${dockerip}:10019
