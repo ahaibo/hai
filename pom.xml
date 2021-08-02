@@ -38,7 +38,7 @@
         <commons.dbcp.version>1.4</commons.dbcp.version>
 
         <httpclient.commons.version>3.1</httpclient.commons.version>
-        <ant.version>1.10.1</ant.version>
+        <ant.version>1.10.11</ant.version>
 
         <httpclient.version>4.5.13</httpclient.version>
         <mail.version>1.4.7</mail.version>
