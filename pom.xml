@@ -95,7 +95,7 @@
         <mvn.jetty.plg.version>6.1.7</mvn.jetty.plg.version>
 
         <!--business-->
-        <struts.version>2.5.26</struts.version>
+        <struts.version>2.5.30</struts.version>
         <hibernate.version>5.4.30.Final</hibernate.version>
         <ognl.version>3.2.19</ognl.version>
         <aspectj.version>1.8.10</aspectj.version>
